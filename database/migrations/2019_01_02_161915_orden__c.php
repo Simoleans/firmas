@@ -23,7 +23,7 @@ class OrdenC extends Migration
             $table->integer('id_proveedor')->unsigned(); //saber que usuario registro el proveedor
             $table->foreign('id_proveedor')->references('id')->on('proveedor')->onDelete('cascade');
             $table->string('tipo_modelo');
-            $table->string('produto');
+            $table->string('producto');
             $table->string('precio_unt');
             $table->string('cantidad');
             $table->timestamps();

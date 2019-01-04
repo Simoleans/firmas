@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Proveedor;
 use App\Empresas;
+use App\OrdenC;
 
 class OrdenCompraController extends Controller
 {
@@ -43,7 +44,32 @@ class OrdenCompraController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $codigo=rand(11111, 99999);
+
+        //dd($request->all());
+
+
+        for ($i=0; $i < count($request->producto) ; $i++) { 
+           
+            $orden = new OrdenC;
+            $orden->cod_seguimiento = $codigo;
+            $orden->id_user = Auth::user()->id;
+            $orden->id_proveedor = $request->id_proveedor;
+            $orden->id_empresa = $request->id_empresa;
+            $orden->tipo_modelo = $request->tipo_modelo[$i];
+            $orden->producto = $request->producto[$i];
+            $orden->precio_unt = $request->precio_unt[$i];
+            $orden->cantidad = $request->cantidad[$i];
+            $orden->save();
+
+        }
+
+         
+            return redirect("users")->with([
+              'flash_message' => 'Usuario agregado correctamente.',
+              'flash_class' => 'alert-success'
+              ]);
+         
     }
 
     /**

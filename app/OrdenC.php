@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrdenC extends Model
 {
-     protected $fillable = [
-          'nombre',
-          'email',
-          'rut_user',
-          'ciudad_user',
-          'telefono_user',
-          'direccion_user',
-    ];
+     public $table = 'orden_compra';
+
+     protected $fillable = ['cod_seguimiento','id_user','id_proveedor','id_empresa','producto','precio_unt','cantidad'];
 }
