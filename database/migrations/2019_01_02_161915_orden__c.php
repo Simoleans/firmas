@@ -15,15 +15,17 @@ class OrdenC extends Migration
     {
         Schema::create('orden_compra', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('cod_seguimiento');
             $table->integer('id_user')->unsigned(); //saber que usuario registro el proveedor
             $table->foreign('id_user')->references('id')->on('empresas')->onDelete('cascade');
             $table->integer('id_empresa')->unsigned(); //saber que usuario registro el proveedor
             $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('cascade');
+            $table->integer('id_proveedor')->unsigned(); //saber que usuario registro el proveedor
+            $table->foreign('id_proveedor')->references('id')->on('proveedor')->onDelete('cascade');
             $table->string('tipo_modelo');
             $table->string('produto');
-            $table->string('precio');
+            $table->string('precio_unt');
             $table->string('cantidad');
-            $table->string('total');
             $table->timestamps();
         });
     }

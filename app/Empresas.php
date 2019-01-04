@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Empresas extends Model
 {
+
+     public $table = 'empresas';
+
      protected $fillable = [
-         'id_user',
+          'id_user',
           'r_social',
           'ciudad',
           'contacto',
@@ -16,4 +19,10 @@ class Empresas extends Model
           'telefono',
           'logo',
     ];
+
+    public function personas()
+    {
+       //return $this->belongsTo('App\User','id_user');
+       return $this->belongsTo('App\User','id_user');
+    }
 }

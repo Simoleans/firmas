@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Proveedor;
+use App\Empresas;
 
-class Orden_c extends Controller
+class OrdenCompraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +26,13 @@ class Orden_c extends Controller
      */
     public function create()
     {
-        //
+        //dd(Auth::user()->empresa->toArray()[0]['r_social']);
+
+        $proveedores = Proveedor::where('id_user', Auth::user()->id)->get();
+
+        $empresa = Empresas::where('id_user',Auth::user()->id)->first();
+
+        return view('ordenC.create',['proveedor' => $proveedores,'empresa' => $empresa]);
     }
 
     /**

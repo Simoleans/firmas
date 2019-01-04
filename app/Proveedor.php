@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proveedor extends Model
 {
+
+	 public $table = 'proveedor';
+
       protected $fillable = [ 'id',
           'id_user',
           'razon_social',

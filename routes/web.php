@@ -27,4 +27,13 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	//* --- Perfil --- */
 	Route::get('/perfil', 'UserController@perfil')->name('perfil');
 	Route::patch('/perfil', 'UserController@update_perfil')->name('update_perfil');
+
+	/* Empresas */
+	Route::resource('/empresas','EmpresasController');
+
+	/* Proveedores */
+	Route::resource('/proveedor','ProveedoresController');
+
+	/* Orden De Compra */
+	Route::resource('/ordencompra','OrdenCompraController');
 });

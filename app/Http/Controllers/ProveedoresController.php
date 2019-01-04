@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Proveedor;
 
-class Proveedor extends Controller
+class ProveedoresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,9 @@ class Proveedor extends Controller
      */
     public function index()
     {
-        //
+        $proveedores = Proveedor::where('id_user',Auth::user()->id)->get();
+
+        return view('proveedores.index',['proveedores' => $proveedores]);
     }
 
     /**
@@ -23,7 +27,7 @@ class Proveedor extends Controller
      */
     public function create()
     {
-        //
+        return view('proveedores.create');
     }
 
     /**
@@ -34,7 +38,30 @@ class Proveedor extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        //dd($request->all());
+
+        $this->validate($request, [
+            'rut_proveedor' => 'required|unique:proveedor',
+          ]);
+
+      $proveedor = new Proveedor;
+      $proveedor->fill($request->all());
+      $proveedor->id_user = Auth::user()->id;
+
+
+      if($proveedor->save()){
+        return redirect("proveedor")->with([
+          'flash_message' => 'Proveedor agregado correctamente.',
+          'flash_class' => 'alert-success'
+          ]);
+      }else{
+        return redirect("proveedor")->with([
+          'flash_message' => 'Ha ocurrido un error.',
+          'flash_class' => 'alert-danger',
+          'flash_important' => true
+          ]);
+      }
     }
 
     /**

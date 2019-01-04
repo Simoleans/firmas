@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/fileinput-rtl.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/fileinput.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/css/inputmask.min.css" rel="stylesheet"/>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
@@ -98,7 +99,7 @@
 
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-user"></i>
                 <span>Usuarios</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -108,14 +109,39 @@
               </ul>
             </li>
 
-            <li class="treeview">
+             <li class="treeview">
               <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>MENU DESPLEGABLE</span>
+                <i class="fa fa-industry"></i>
+                <span>Empresa</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Item</a></li>
+                <li><a href="{{route('empresas.create')}}"><i class="fa fa-circle-o"></i> Registrar Empresa</a></li>
+                <li><a href="{{route('empresas.index')}}"><i class="fa fa-circle-o"></i> Mis Empresa</a></li>
+              </ul>
+            </li>
+
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Proveedores</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('proveedor.create')}}"><i class="fa fa-circle-o"></i> Registrar Proveedor</a></li>
+                <li><a href="{{route('proveedor.index')}}"><i class="fa fa-circle-o"></i> Mis Proveedores</a></li>
+              </ul>
+            </li>
+
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-print"></i>
+                <span>Documentos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('ordencompra.create')}}"><i class="fa fa-circle-o"></i> Orden Compra</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> Item</a></li>
               </ul>
             </li>
@@ -166,11 +192,38 @@
     <!-- Data table -->
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/fileinput.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
     <script type="text/javascript">
+       
+
       $(document).ready(function(){
+
+        $(".rut").inputmask({
+            mask: "9[9.999.99]-[9|K|k]",
+          });
+
+        $(".tlf").inputmask({
+            mask: "[9-9999-9999]",
+          });
       	//Eliminar alertas que no contengan la clase alert-important luego de 7seg
       	$('div.alert').not('.alert-important').delay(7000).slideUp(300);
+
+         $(".img_upload").fileinput({
+            browseClass: "btn btn-primary btn-block",
+            showCaption: false,
+            browseLabel: "Agregar Foto",
+            browseIcon: "<i class=\"fa fa-file-image-o\"></i> ",
+            showRemove: false,
+            showUpload: false,
+            showCancel: false,
+            showClose: false,
+            dropZoneEnabled: false
+        });
+
 
       	//activar Datatable
         $('.data-table').DataTable({
