@@ -55,28 +55,28 @@
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Tipo: *</label>
-										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+										<input id="razon_social" class="form-control" type="text" name="tipo_modelo[]"  placeholder="Razon Social" required >
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Producto: *</label>
-										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+										<input id="razon_social" class="form-control" type="text" name="producto[]"  placeholder="Producto" required >
 								</div>
 							</div>
 							
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Precio Unt: *</label>
-										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+										<input id="razon_social" class="form-control" type="text" name="precio_unt[]"  placeholder="Precio Unitario." required >
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Cantidad: *</label>
-										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+										<input id="razon_social" class="form-control" type="number" name="cantidad[]"  placeholder="Cantidad" required >
 								</div>
 							</div>
 
@@ -121,7 +121,7 @@
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Producto: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Precio Unt.: *</label><input id="razon_social" class="form-control" type="text" name="razon_social" placeholder="Razon Social" required readonly></div></div><div class="col-md-2"><div class="form-group"><label class="control-label" for="razon_social">Cantidad: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div>'; //New input field html 
+    var fieldHTML = '<div class="remove"><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="tipo_modelo[]"  placeholder="Razon Social" required ></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Producto: *</label><input id="razon_social" class="form-control" type="text" name="producto[]"  placeholder="Razon Social" required ></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Precio Unt.: *</label><input id="razon_social" class="form-control" type="text" name="precio_unt[]" placeholder="Razon Social" required ></div></div><div class="col-md-2"><div class="form-group"><label class="control-label" for="razon_social">Cantidad: *</label><input id="razon_social" class="form-control" type="number" name="cantidad[]"  placeholder="Razon Social" required ></div></div><div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
         if(x < maxField){ //Check maximum number of input fields
@@ -131,7 +131,9 @@
     });
     $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
         e.preventDefault();
-        $(this).parent('div').remove(); //Remove field html
+        //alert($(this).parent('div'));
+        console.log($(this).parent('div'));
+        $(this).parent('div').parent('div').parent('div').remove(); //Remove field html
         x--; //Decrement field counter
     });
 });
