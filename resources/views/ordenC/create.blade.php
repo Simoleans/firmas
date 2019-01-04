@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title','Proveedores - '.config('app.name'))
-@section('header','Proveedores')
+@section('title','Orden De Compra - '.config('app.name'))
+@section('header','Orden De Compra')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-	  <li><a href="{{route('users.index')}}" title="Proveedores"> Proveedores </a></li>
-	  <li class="active">Agregar</li>
+	  <li><a href="{{route('users.index')}}" title="Orden De Compra"> Orden De Compra </a></li>
+	  <li class="active">Orden De Compra</li>
 	</ol>
 @endsection
 @section('content')
@@ -17,14 +17,14 @@
 		</div>
 
 		<div class="row">
-	  	<div class="col-md-7 col-md-offset-2">
+	  	<div class="col-md-12">
 	    	<div class="box box-success">
 		      <div class="box-header with-border">
-		        <h3 class="box-title"><i class="fa fa-users"></i> Registrar Proveedor</h3>
+		        <h3 class="box-title"><i class="fa fa-users"></i> Registrar Orden De Compra</h3>
 		        <span class="pull-right"></span>
 		       </div>
       			<div class="box-body">
-					<form class="" action="{{ route('proveedor.store') }}" method="POST" enctype="multipart/form-data">
+					<form class="" action="{{ route('ordencompra.store') }}" method="POST" enctype="multipart/form-data">
 					{{ method_field( 'POST' ) }}
 					{{ csrf_field() }}
 					<input type="hidden" name="id_empresa" value="{{$empresa->id}}">
@@ -38,7 +38,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('contacto')?'has-error':'' }}">
-								<label class="control-label" for="contacto">Proveedores: *</label>
+								<label class="control-label" for="contacto">Proveedor: *</label>
 								<select name="id_proveedor" id="id_proveedor" class="form-control">
 									<option value="">Seleccione...</option>
 									@foreach($proveedor as $p)
@@ -47,16 +47,12 @@
 								</select>
 							</div>
 						</div>
-
-						<div class="field_wrapper">
-							<div class="col-md-4">
-								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
-									<label class="control-label" for="razon_social">Tipo: *</label>
-										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
-								</div>
-							</div>
-
-							<div class="col-md-4">
+					</div>
+					<hr>
+						<h2 class="text-center">Productos</h2>
+					<hr>
+						<div class="field_wrapper row">
+							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Tipo: *</label>
 										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
@@ -65,16 +61,36 @@
 
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
-									<label class="control-label" for="razon_social">Tipo: *</label>
+									<label class="control-label" for="razon_social">Producto: *</label>
 										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
 								</div>
 							</div>
 							
+							<div class="col-md-3">
+								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
+									<label class="control-label" for="razon_social">Precio Unt: *</label>
+										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+								</div>
+							</div>
 
-						    <div class="col-md-3 col-md-offset-6">
+							<div class="col-md-3">
+								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
+									<label class="control-label" for="razon_social">Cantidad: *</label>
+										<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+								</div>
+							</div>
+
+						
+							
+						   
+						</div>
+						
+						<div class="row">
+							<div class="col-md-1 col-md-offset-6">
 						        <a href="javascript:void(0);" class=" btn btn-sm btn-success add_button" title="Add field"><i class="fa fa-plus"></i></a>
 						    </div>
 						</div>
+						 
 						
 					</div>
 
@@ -105,7 +121,7 @@
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="razon_social" placeholder="Razon Social" required readonly></div></div><div class="col-md-3"><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div>'; //New input field html 
+    var fieldHTML = '<div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Producto: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Precio Unt.: *</label><input id="razon_social" class="form-control" type="text" name="razon_social" placeholder="Razon Social" required readonly></div></div><div class="col-md-2"><div class="form-group"><label class="control-label" for="razon_social">Cantidad: *</label><input id="razon_social" class="form-control" type="text" name="razon_social"  placeholder="Razon Social" required readonly></div></div><div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
         if(x < maxField){ //Check maximum number of input fields
