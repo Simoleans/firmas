@@ -24,10 +24,11 @@
 		        <span class="pull-right"></span>
 		       </div>
       			<div class="box-body">
-					<form class="" action="{{ route('ordencompra.store') }}" method="POST" enctype="multipart/form-data">
+					<form   method="POST" enctype="multipart/form-data" id="form_pad">
 					{{ method_field( 'POST' ) }}
 					{{ csrf_field() }}
 					<input type="hidden" name="id_empresa" value="{{$empresa->id}}">
+					<input type="hidden" name="firma" id="firma" required>
 					<h4>Agregar Proveedor</h4>
 					<div class="row">
 						<div class="col-md-6">
@@ -39,7 +40,7 @@
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('contacto')?'has-error':'' }}">
 								<label class="control-label" for="contacto">Proveedor: *</label>
-								<select name="id_proveedor" id="id_proveedor" class="form-control">
+								<select name="id_proveedor" id="id_proveedor" class="form-control" required>
 									<option value="">Seleccione...</option>
 									@foreach($proveedor as $p)
 										<option value="{{$p->id}}">{{$p->razon_social}}</option>
@@ -55,14 +56,14 @@
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Tipo: *</label>
-										<input id="razon_social" class="form-control" type="text" name="tipo_modelo[]"  placeholder="Razon Social" required >
+										<input id="razon_social" class="form-control" type="text" name="tipo_modelo[]" onkeyup="mayus(this);" placeholder="Razon Social" required >
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Producto: *</label>
-										<input id="razon_social" class="form-control" type="text" name="producto[]"  placeholder="Producto" required >
+										<input id="razon_social" class="form-control" type="text" name="producto[]" onkeyup="mayus(this);"  placeholder="Producto" required >
 								</div>
 							</div>
 							
@@ -78,19 +79,26 @@
 									<label class="control-label" for="razon_social">Cantidad: *</label>
 										<input id="razon_social" class="form-control" type="number" name="cantidad[]"  placeholder="Cantidad" required >
 								</div>
-							</div>
-
-						
-							
-						   
+							</div>  
 						</div>
 						
 						<div class="row">
 							<div class="col-md-1 col-md-offset-6">
 						        <a href="javascript:void(0);" class=" btn btn-sm btn-success add_button" title="Add field"><i class="fa fa-plus"></i></a>
 						    </div>
+
+						    <div class="col-md-6 col-md-offset-3">
+						    	{{-- <label class="control-label" for="Firma">Firma: *</label> --}}
+								<div id="signArea" >
+									
+									<div class="sig sigWrapper" style="height:auto;">
+										<div class="typed"></div>
+										<canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
+									</div>
+									<h3 class="tag-ingo text-center">{{Auth::user()->nombre}}</h3>
+								</div>
+						    </div>
 						</div>
-						 
 						
 					</div>
 
@@ -107,6 +115,7 @@
 						<a class="btn btn-flat btn-default" href="{{route('users.index')}}"><i class="fa fa-reply"></i> Atras</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
+					<br>
 				</form>
 				</div>
 			</div>
@@ -117,11 +126,49 @@
 @section('script')
 
 <script type="text/javascript">
+	function mayus(e) {//poner datos en mayusula
+	    e.value = e.value.toUpperCase();
+	}
 	$(document).ready(function(){
+			//firma
+			$('#signArea').signaturePad({drawOnly:true, drawBezierCurves:true, lineTop:90});
+			
+			$("#form_pad").submit(function(e){
+				e.preventDefault();
+				html2canvas([document.getElementById('sign-pad')], {
+					onrendered: function (canvas) {
+						var canvas_img_data = canvas.toDataURL('image/png');
+						var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
+
+						$("#firma").val(img_data);
+
+						if ( $("p.error").is(':visible') ) {
+						  $("p.error").text("Falta la firma del documento.");
+						  
+						}else{
+							//alert("fdfdfd")
+								$.ajax({
+									url: '{{route('ordencompra.store')}}',
+									data: $("#form_pad").serialize(),
+									type: 'post',
+									dataType: 'json',
+									success: function (response) {
+										alert(response.msg);
+									   window.location.reload();
+									}
+								});
+						}
+						
+					
+					}
+				});
+			}); //fin firma
+/// aqui es para agregar mas productos
+
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div class="remove"><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="tipo_modelo[]"  placeholder="Razon Social" required ></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Producto: *</label><input id="razon_social" class="form-control" type="text" name="producto[]"  placeholder="Razon Social" required ></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Precio Unt.: *</label><input id="razon_social" class="form-control" type="text" name="precio_unt[]" placeholder="Razon Social" required ></div></div><div class="col-md-2"><div class="form-group"><label class="control-label" for="razon_social">Cantidad: *</label><input id="razon_social" class="form-control" type="number" name="cantidad[]"  placeholder="Razon Social" required ></div></div><div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div></div>'; //New input field html 
+    var fieldHTML = '<div class="remove"><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="tipo_modelo[]" onkeyup="mayus(this);"  placeholder="Razon Social" required ></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Producto: *</label><input id="razon_social" class="form-control" type="text" name="producto[]" onkeyup="mayus(this);"  placeholder="Producto" required ></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Precio Unt.: *</label><input id="razon_social" class="form-control" type="text" name="precio_unt[]" placeholder="Razon Social" required ></div></div><div class="col-md-2"><div class="form-group"><label class="control-label" for="razon_social">Cantidad: *</label><input id="razon_social" class="form-control" type="number" name="cantidad[]"  placeholder="Cantidad" required ></div></div><div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
         if(x < maxField){ //Check maximum number of input fields

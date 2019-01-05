@@ -38,4 +38,11 @@ class User extends Authenticatable
 
        return $this->hasMany('App\Empresas','id_user');
     }
+
+    public function ordenes()
+    {
+        return $this->hasMany('App\OrdenC');
+
+        //return $this->hasMany('App\OrdenC','id_user');
+    }
 }

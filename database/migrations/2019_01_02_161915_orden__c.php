@@ -22,10 +22,7 @@ class OrdenC extends Migration
             $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('cascade');
             $table->integer('id_proveedor')->unsigned(); //saber que usuario registro el proveedor
             $table->foreign('id_proveedor')->references('id')->on('proveedor')->onDelete('cascade');
-            $table->string('tipo_modelo');
-            $table->string('producto');
-            $table->string('precio_unt');
-            $table->string('cantidad');
+            $table->string('firma');
             $table->timestamps();
         });
     }
