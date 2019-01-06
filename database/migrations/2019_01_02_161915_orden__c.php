@@ -15,7 +15,7 @@ class OrdenC extends Migration
     {
         Schema::create('orden_compra', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cod_seguimiento');
+            $table->string('cod_seguimiento');
             $table->integer('id_user')->unsigned(); //saber que usuario registro el proveedor
             $table->foreign('id_user')->references('id')->on('empresas')->onDelete('cascade');
             $table->integer('id_empresa')->unsigned(); //saber que usuario registro el proveedor

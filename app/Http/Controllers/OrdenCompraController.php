@@ -8,7 +8,7 @@ use App\ProductosCompras;
 use App\Proveedor;
 use App\Empresas;
 use App\OrdenC;
-
+use PDF;
 class OrdenCompraController extends Controller
 {
     /**
@@ -64,7 +64,7 @@ class OrdenCompraController extends Controller
             
 
             $orden = new OrdenC;
-            $orden->cod_seguimiento = $codigo;
+            $orden->cod_seguimiento = 'OC'.$codigo;
             $orden->id_user = Auth::user()->id;
             $orden->id_proveedor = $request->id_proveedor;
             $orden->id_empresa = $request->id_empresa;
@@ -77,11 +77,12 @@ class OrdenCompraController extends Controller
                  for ($i=0; $i < count($request->producto); $i++) { 
            
                     $productosCompras = new ProductosCompras;
-                    $productosCompras->cod_seguimiento = $codigo;
+                    $productosCompras->cod_seguimiento = 'OC'.$codigo;
                     $productosCompras->tipo_modelo = $request->tipo_modelo[$i];
                     $productosCompras->producto = $request->producto[$i];
                     $productosCompras->precio_unt = $request->precio_unt[$i];
                     $productosCompras->cantidad = $request->cantidad[$i];
+                    $productosCompras->precio_total  = $request->cantidad[$i] * $request->precio_unt[$i];
                     $productosCompras->save();
 
                  }//fin for
@@ -141,6 +142,14 @@ class OrdenCompraController extends Controller
 
     public function pdf($id)
     {
-        
+        $orden = OrdenC::findOrfail($id);
+
+        $productos = ProductosCompras::where('cod_seguimiento',$orden->cod_seguimiento)->get();
+
+        //dd($productos);
+
+        $pdf = PDF::loadView('ordenC.pdf',['orden'=>$orden,'productos'=>$productos]);
+            
+            return $pdf->download($orden->cod_seguimiento.'.pdf');
     }
 }

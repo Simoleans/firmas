@@ -38,7 +38,7 @@
 					<table class="table data-table table-bordered table-hover table-condensed">
 						<thead>
 							<tr>
-								<th class="text-center">#</th>
+								<th class="text-center">Codigo</th>
 								<th class="text-center">Usuario</th>
 								<th class="text-center">Empresa</th>
 								<th class="text-center">Proveedor</th>

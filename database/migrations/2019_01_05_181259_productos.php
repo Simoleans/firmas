@@ -15,11 +15,12 @@ class Productos extends Migration
     {
         Schema::create('productos_compras', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cod_seguimiento');
+            $table->string('cod_seguimiento');
             $table->string('tipo_modelo');
             $table->string('producto');
             $table->string('precio_unt');
             $table->string('cantidad');
+            $table->string('precio_total');
             $table->timestamps();
         });
     }
