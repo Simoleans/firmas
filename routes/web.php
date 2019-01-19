@@ -37,4 +37,7 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	/* Orden De Compra */
 	Route::resource('/ordencompra','OrdenCompraController');
 	Route::get('/orden/pdf/{id}','OrdenCompraController@pdf')->name('ordencompra.pdf');
+
+	/* Actas */
+	Route::resource('/actas','ActasController');
 });

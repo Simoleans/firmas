@@ -182,6 +182,18 @@
               </ul>
             </li>
 
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-o"></i>
+                <span>Actas</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('actas.create')}}"><i class="fa fa-circle-o"></i>Crear Acta</a></li>
+                <li><a href="{{route('actas.index')}}"><i class="fa fa-circle-o"></i>Ver Actas</a></li>
+              </ul>
+            </li>
+
             <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>

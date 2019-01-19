@@ -25,4 +25,9 @@ class Empresas extends Model
        //return $this->belongsTo('App\User','id_user');
        return $this->belongsTo('App\User','id_user');
     }
+
+     public static function empresa($id)
+    {
+      return Empresas::where('id_user',$id)->first();
+    }
 }
