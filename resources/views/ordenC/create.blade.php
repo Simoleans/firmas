@@ -56,7 +56,7 @@
 							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Tipo: *</label>
-										<input id="razon_social" class="form-control" type="text" name="tipo_modelo[]" onkeyup="mayus(this);" placeholder="Razon Social" required >
+										<input id="razon_social" class="form-control" type="text" name="tipo_modelo[]" onkeyup="mayus(this);" placeholder="Tipo" required >
 								</div>
 							</div>
 
@@ -96,6 +96,7 @@
 										<canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
 									</div>
 									<h3 class="tag-ingo text-center">{{Auth::user()->nombre}}</h3>
+									
 								</div>
 						    </div>
 						</div>
@@ -113,6 +114,7 @@
 			        @endif
 					<div class="form-group text-right">
 						<a class="btn btn-flat btn-default" href="{{route('users.index')}}"><i class="fa fa-reply"></i> Atras</a>
+						<button type="button" id="clear" class="btn btn-warning" align="center">Limpiar firma</button>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 					<br>
@@ -130,6 +132,11 @@
 	    e.value = e.value.toUpperCase();
 	}
 	$(document).ready(function(){
+
+		$("#clear").click(function(e){
+		   $('#signArea').signaturePad().clearCanvas();
+		});
+
 			//firma
 			$('#signArea').signaturePad({drawOnly:true, drawBezierCurves:true, lineTop:90});
 			
@@ -141,6 +148,11 @@
 						var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
 
 						$("#firma").val(img_data);
+
+						$("#clear").click(function(event) {
+							alert("ssf");
+						});
+
 
 						if ( $("p.error").is(':visible') ) {
 						  $("p.error").text("Falta la firma del documento.");
@@ -161,14 +173,14 @@
 						
 					
 					}
-				});
+				});// fin html2canvas
 			}); //fin firma
 /// aqui es para agregar mas productos
 
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div class="remove"><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="tipo_modelo[]" onkeyup="mayus(this);"  placeholder="Razon Social" required ></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Producto: *</label><input id="razon_social" class="form-control" type="text" name="producto[]" onkeyup="mayus(this);"  placeholder="Producto" required ></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Precio Unt.: *</label><input id="razon_social" class="form-control" type="number" name="precio_unt[]" placeholder="Precio Unt." required ></div></div><div class="col-md-2"><div class="form-group"><label class="control-label" for="razon_social">Cantidad: *</label><input id="razon_social" class="form-control" type="number" name="cantidad[]"  placeholder="Cantidad" required ></div></div><div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div></div>'; //New input field html 
+    var fieldHTML = '<div class="remove"><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Tipo: *</label><input id="razon_social" class="form-control" type="text" name="tipo_modelo[]" onkeyup="mayus(this);"  placeholder="Tipo" required ></div></div><div class="col-md-3"><div class="form-group"><label class="control-label" for="razon_social">Producto: *</label><input id="razon_social" class="form-control" type="text" name="producto[]" onkeyup="mayus(this);"  placeholder="Producto" required ></div></div><div class="col-md-3"><div class="form-group "><label class="control-label" for="razon_social">Precio Unt.: *</label><input id="razon_social" class="form-control" type="number" name="precio_unt[]" placeholder="Precio Unt." required ></div></div><div class="col-md-2"><div class="form-group"><label class="control-label" for="razon_social">Cantidad: *</label><input id="razon_social" class="form-control" type="number" name="cantidad[]"  placeholder="Cantidad" required ></div></div><div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><br><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
         if(x < maxField){ //Check maximum number of input fields
