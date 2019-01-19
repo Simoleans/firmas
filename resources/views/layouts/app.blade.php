@@ -92,6 +92,7 @@
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
               <!-- User Account: style can be found in dropdown.less -->
+            @auth
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span class="hidden-xs">{{ Auth::user()->email }}</span>
@@ -120,11 +121,13 @@
                   </li>
                 </ul>
               </li>
+            @endauth
             </ul>
           </div>
         </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
+    @auth
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -210,6 +213,7 @@
         </section>
         <!-- /.sidebar -->
       </aside>
+    @endauth
 
       <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->

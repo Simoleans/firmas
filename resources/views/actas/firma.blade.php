@@ -9,11 +9,6 @@
 	</ol>
 @endsection
 @section('content')
-	<section>
-    <a class="btn btn-flat btn-default" href="{{ route('actas.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-    {{-- <a class="btn btn-flat btn-success" href="{{ route('actas.edit',[$acta->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a> --}}
-    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	</section>
 
 	<section class="perfil">
 		<div class="row">
@@ -53,37 +48,39 @@
       <div class="col-md-12">
         <h2 class="page-header" style="margin-top:0!important">
           <i class="fa fa-users" aria-hidden="true"></i>
-          Participantes
+          Firma Aquí
           <span class="clearfix"></span>
         </h2>
       </div>
       <div class="col-md-12">
-       <table class="table table-condensed table-hover table-bordered">
-         <thead>
-           <tr>
-            <th class="text-center">Nombre</th>
-            <th class="text-center">Apellido</th>
-            <th class="text-center">Cargo</th>
-            <th class="text-center">Acción</th>
-          </tr>
-         </thead>
-         <tbody>
-          @foreach($acta->participantes($acta->codigo) as $p)
-           <tr>
-             <td class="text-center">{{$p->nombre}}</td>
-             <td class="text-center">{{$p->apellido}}</td>
-             <td class="text-center">{{$p->cargo}}</td>
-             <td class="text-center">
-              @if($p->firma == NULL)
-               <a class="btn btn-primary btn-flat btn-sm" href="{{ route('actas.firma',[$acta->id])}}"><i class="fa fa-user-plus"></i></a>
-              @else
-               <img src="{{asset('img/actas').'/'.$p->firma}}" class="img-responsive">
-              @endif
-             </td>
-           </tr>
-          @endforeach
-         </tbody>
-       </table>
+       <form method="POST" enctype="multipart/form-data" id="form_pad">
+
+        <input type="hidden" name="id_participante" value="{{$participante->id}}">
+        <input type="hidden" name="firma" id="firma" required>
+        {{ csrf_field() }}
+        {{ method_field( 'PUT' ) }}
+        <div class="row">
+           <div class="col-md-6 col-md-offset-3">
+              {{-- <label class="control-label" for="Firma">Firma: *</label> --}}
+            <div id="signArea" >
+              <div class="sig sigWrapper" style="height:auto;">
+                <div class="typed"></div>
+                <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
+              </div>
+              <h3 class="tag-ingo text-center">{{$participante->nombre.' '.$participante->apellido}}</h3>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="form-group text-center">
+            <button type="button" id="clear" class="btn btn-warning" align="center">Limpiar firma</button>
+            <button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
+          </div>
+        </div>
+          
+
+       </form>
       </div>
     </div>
     <div class="row">
@@ -115,28 +112,53 @@
     </div>
 	</section>
 
-	<div id="delModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="delModalLabel">Eliminar usuario</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <form class="col-md-8 col-md-offset-2" action="{{ route('actas.destroy',[$acta->id])}}" method="POST">
-              {{ method_field( 'DELETE' ) }}
-              {{ csrf_field() }}
-              <h4 class="text-center">¿Esta seguro de eliminar esta acta?</h4><br>
+@endsection
 
-              <center>
-                <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
-                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
-              </center>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+@section('script')
+
+<script type="text/javascript">
+ 
+  $(document).ready(function(){
+
+    $("#clear").click(function(e){
+       $('#signArea').signaturePad().clearCanvas();
+    });
+
+      //firma
+      $('#signArea').signaturePad({drawOnly:true, drawBezierCurves:true, lineTop:90});
+      
+      $("#form_pad").submit(function(e){
+        e.preventDefault();
+        html2canvas([document.getElementById('sign-pad')], {
+          onrendered: function (canvas) {
+            var canvas_img_data = canvas.toDataURL('image/png');
+            var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
+
+            $("#firma").val(img_data);
+
+            if ( $("p.error").is(':visible') ) {
+              $("p.error").text("Falta la firma del documento.");
+              
+            }else{
+              //alert("fdfdfd")
+                $.ajax({
+                  url: '{{route('actas.send')}}',
+                  data: $("#form_pad").serialize(),
+                  type: 'post',
+                  dataType: 'json',
+                  success: function (response) {
+                    alert(response.msg);
+                     window.location.reload();
+                  }
+                });
+            }
+            
+          
+          }
+        });// fin html2canvas
+      }); //fin firma
+
+});
+</script>
+
 @endsection

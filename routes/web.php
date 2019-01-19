@@ -37,8 +37,12 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	/* Orden De Compra */
 	Route::resource('/ordencompra','OrdenCompraController');
 	Route::get('/orden/pdf/{id}','OrdenCompraController@pdf')->name('ordencompra.pdf');
-
 	/* Actas */
 	Route::resource('/actas','ActasController');
 	Route::get('actas/pdf/{id}','ActasController@pdf')->name('actas.pdf');
+
 });
+
+	
+	Route::get('actas/firma/{id}','ActasController@firma')->name('actas.firma');
+	Route::post('actas/signature','ActasController@firmaSend')->name('actas.send');

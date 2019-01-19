@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Participantes;
+use App\Acciones;
 
 class Actas extends Model
 {
@@ -24,5 +25,15 @@ class Actas extends Model
      public function user()
      {
      	 return $this->belongsTo("App\User", "id_user");
+     }
+
+     public function participantes($codigo)
+     {
+     	return Participantes::where('codigo_acta',$codigo)->get();
+     }
+
+      public function acciones($codigo)
+     {
+     	return Acciones::where('codigo_acta',$codigo)->get();
      }
 }

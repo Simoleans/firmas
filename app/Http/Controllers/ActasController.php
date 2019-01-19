@@ -133,4 +133,18 @@ class ActasController extends Controller
     {
 
     }
+
+    public function firma($id)
+    {
+        $acta = Actas::findOrfail($id);
+
+        $participante = Participantes::where('codigo_acta',$acta->codigo)->first();
+
+        return view('actas.firma',['acta' => $acta,'participante' => $participante]);
+    }
+
+    public function firmaSend(Request $request)
+    {
+        dd($request->all());
+    }
 }
