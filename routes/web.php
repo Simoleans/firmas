@@ -40,4 +40,5 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 
 	/* Actas */
 	Route::resource('/actas','ActasController');
+	Route::get('actas/pdf/{id}','ActasController@pdf')->name('actas.pdf');
 });

@@ -31,7 +31,7 @@
 		      <div class="box-header with-border">
 		        <h3 class="box-title"><i class="fa fa-users"></i> Actas</h3>
 		        <span class="pull-right">
-							<a href="{{ route('actas.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Orden</a>
+							<a href="{{ route('actas.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Acta</a>
 						</span>
 		      </div>
       			<div class="box-body">
@@ -42,6 +42,7 @@
 								<th class="text-center">Usuario</th>
 								<th class="text-center">Empresa</th>
 								<th class="text-center">Participantes</th>
+								<th class="text-center">Fecha inicio</th>
 								<th class="text-center">Accion</th>
 							</tr>
 						</thead>
@@ -51,10 +52,11 @@
 									<td>{{$d->codigo}}</td>
 									<td>{{$d->user->nombre}}</td>
 									<td>{{strtoupper($d->empresa->r_social)}}</td>
-									<td>Total</td>
+									<td>{{$d->total($d->codigo)}}</td>
+									<td>{{$d->created_at->format('Y-m-d')}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('ordencompra.show',[$d->id])}}"><i class="fa fa-search"></i></a>
-										<a class="btn btn-danger btn-flat btn-sm" href="{{ route('ordencompra.pdf',[$d->id])}}"><i class="fa fa-print"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('actas.show',[$d->id])}}"><i class="fa fa-search"></i></a>
+										<a class="btn btn-danger btn-flat btn-sm" href="{{ route('actas.pdf',[$d->id])}}"><i class="fa fa-print"></i></a>
 										{{-- <a href="{{route('ordencompra.edit',[$d->id])}}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>  --}}
 									</td>
 								</tr>

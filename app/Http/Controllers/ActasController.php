@@ -8,6 +8,7 @@ use App\Proveedor;
 use App\Empresas;
 use App\Actas;
 use App\Participantes;
+use App\Acciones;
 
 class ActasController extends Controller
 {
@@ -18,7 +19,10 @@ class ActasController extends Controller
      */
     public function index()
     {
-        //
+        $actas = Actas::where('id_user',Auth::user()->id)->get();
+        //dd($actas);
+
+        return view('actas.index',['actas' => $actas]);
     }
 
     /**
@@ -48,8 +52,10 @@ class ActasController extends Controller
         $acta->codigo = 'AC'.$codigo;
         $acta->id_user = Auth::user()->id;
         $acta->id_empresa = $request->id_empresa;
+        $acta->observaciones = $request->observaciones;
 
         if ($acta->save()) {
+            //for participantes
             for ($i=0; $i < count($request->nombre); $i++)
              { 
            
@@ -60,6 +66,17 @@ class ActasController extends Controller
                 $participante->cargo = $request->cargo[$i];
                 $participante->save();
              }//fin for
+
+             //for acciones
+             for ($i=0; $i < count($request->accion); $i++)
+             { 
+           
+                $acciones = new Acciones;
+                $acciones->codigo_acta = 'AC'.$codigo;
+                $acciones->accion = $request->accion[$i];
+                $acciones->save();
+             }//fin for
+
 
              return response()->json(['msg'=>'Se registro correctamente']);
         }
@@ -73,7 +90,9 @@ class ActasController extends Controller
      */
     public function show($id)
     {
-        //
+        $acta = Actas::findOrfail($id);
+
+        return view('actas.view',['acta' => $acta]);
     }
 
     /**
@@ -108,5 +127,10 @@ class ActasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function pdf($id)
+    {
+
     }
 }
