@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/AdminLTE.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/glyphicons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/datatables/extensions/Responsive/css/dataTables.responsive.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/fileinput-rtl.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/fileinput.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('js/sign_src/css/jquery.signaturepad.css')}}">
@@ -244,6 +245,7 @@
     <!-- Data table -->
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
     <script type="text/javascript" src="{{asset('js/fileinput.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.js"></script>

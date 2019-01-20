@@ -12,7 +12,7 @@
 	<section>
     <a class="btn btn-flat btn-default" href="{{ route('actas.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
     {{-- <a class="btn btn-flat btn-success" href="{{ route('actas.edit',[$acta->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a> --}}
-    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+    <!-- <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button> -->
 	</section>
 
 	<section class="perfil">
@@ -58,7 +58,7 @@
         </h2>
       </div>
       <div class="col-md-12">
-       <table class="table table-condensed table-hover table-bordered">
+       <table class="table data-table table-condensed table-hover table-bordered nowrap" style="width:100%"">
          <thead>
            <tr>
             <th class="text-center">Nombre</th>
@@ -74,11 +74,11 @@
              <td class="text-center">{{$p->apellido}}</td>
              <td class="text-center">{{$p->cargo}}</td>
              <td class="text-center">
-              @if($p->firma == NULL)
-               <a class="btn btn-primary btn-flat btn-sm" href="{{ route('actas.firma',[$acta->id])}}"><i class="fa fa-user-plus"></i></a>
-              @else
-               <img src="{{asset('img/actas').'/'.$p->firma}}" class="img-responsive">
-              @endif
+                @if($p->firma == NULL)
+                 <a class="btn btn-primary btn-flat btn-sm" href="{{ route('actas.firma',[$p->id])}}"><i class="fa fa-user-plus"></i></a>
+                @else
+                 <img src="{{asset('img/actas').'/'.$p->firma}}" class="img-responsive" align="center">
+                @endif
              </td>
            </tr>
           @endforeach
@@ -120,7 +120,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="delModalLabel">Eliminar usuario</h4>
+          <h4 class="modal-title" id="delModalLabel">Eliminar Acta</h4>
         </div>
         <div class="modal-body">
           <div class="row">

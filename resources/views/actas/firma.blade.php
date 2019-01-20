@@ -53,34 +53,42 @@
         </h2>
       </div>
       <div class="col-md-12">
-       <form method="POST" enctype="multipart/form-data" id="form_pad">
-
-        <input type="hidden" name="id_participante" value="{{$participante->id}}">
-        <input type="hidden" name="firma" id="firma" required>
-        {{ csrf_field() }}
-        {{ method_field( 'PUT' ) }}
-        <div class="row">
-           <div class="col-md-6 col-md-offset-3">
-              {{-- <label class="control-label" for="Firma">Firma: *</label> --}}
-            <div id="signArea" >
-              <div class="sig sigWrapper" style="height:auto;">
-                <div class="typed"></div>
-                <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
+     
+         <form method="POST" enctype="multipart/form-data" id="form_pad">
+         <meta name="csrf-token" content="{{ csrf_token() }}" />
+          <input type="hidden" name="id_participante" value="{{$participante->id}}">
+          <input type="hidden" name="firma" id="firma" required>
+          <div class="row">
+            @if(!$participante->firma)
+             <div class="col-md-6 col-md-offset-3">
+                {{-- <label class="control-label" for="Firma">Firma: *</label> --}}
+              <div id="signArea" >
+                <div class="sig sigWrapper" style="height:auto;">
+                  <div class="typed"></div>
+                  <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
+                </div>
+                <h3 class="tag-ingo text-center">{{$participante->nombre.' '.$participante->apellido}}</h3>
               </div>
+            </div>
+           @else
+            <div class="col-md-6 col-md-offset-3">
+              <img src="{{asset('img/actas').'/'.$participante->firma}}">
               <h3 class="tag-ingo text-center">{{$participante->nombre.' '.$participante->apellido}}</h3>
             </div>
+           @endif
           </div>
-        </div>
-        
-        <div class="row">
-          <div class="form-group text-center">
-            <button type="button" id="clear" class="btn btn-warning" align="center">Limpiar firma</button>
-            <button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
+        @if(!$participante->firma)
+          <div class="row">
+            <div class="form-group text-center">
+              <button type="button" id="clear" class="btn btn-warning" align="center">Limpiar firma</button>
+              <button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
+            </div>
           </div>
-        </div>
-          
+        @endif
+         </form>
+      
 
-       </form>
+      <img src="">
       </div>
     </div>
     <div class="row">
@@ -142,6 +150,9 @@
             }else{
               //alert("fdfdfd")
                 $.ajax({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
                   url: '{{route('actas.send')}}',
                   data: $("#form_pad").serialize(),
                   type: 'post',

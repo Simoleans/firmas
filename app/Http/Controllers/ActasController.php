@@ -136,15 +136,29 @@ class ActasController extends Controller
 
     public function firma($id)
     {
-        $acta = Actas::findOrfail($id);
+        //$acta = Actas::findOrfail($id);
 
-        $participante = Participantes::where('codigo_acta',$acta->codigo)->first();
+        $participante = Participantes::findOrfail($id);
+
+        $acta = Actas::where('codigo',$participante->codigo_acta)->first();
 
         return view('actas.firma',['acta' => $acta,'participante' => $participante]);
     }
 
     public function firmaSend(Request $request)
     {
-        dd($request->all());
+
+         $name = 'ac'.md5(date("dmYhisA")).'.png';
+         $nombre = public_path().'/img/actas/'.$name;
+
+         $participante = Participantes::findOrfail($request->id_participante);
+
+         $participante->firma = $name;
+
+        if ($participante->save()) {
+             file_put_contents($nombre,base64_decode($request->firma));
+
+             return response()->json(['msg' => 'Se ha registrado correctamente']);
+        }
     }
 }
