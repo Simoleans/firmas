@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/fileinput.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('js/sign_src/css/jquery.signaturepad.css')}}">
 
+
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/css/inputmask.min.css" rel="stylesheet"/>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -249,7 +250,6 @@
     <script type="text/javascript" src="{{asset('js/fileinput.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
     <script type="text/javascript" src="{{asset('js/sign_src/js/bezier.js')}}"></script>
      <script type="text/javascript" src="{{asset('js/sign_src/js/jquery.signaturepad.js')}}"></script>
@@ -258,14 +258,12 @@
      <script type='text/javascript' src="https://github.com/niklasvh/html2canvas/releases/download/0.4.1/html2canvas.js"></script>
 
      
-    
-    <script type="text/javascript">
-       
+    <script type="text/javascript">  
 
       $(document).ready(function(){
 
         $(".rut").inputmask({
-            mask: "9[9.999.99]-[9|K|k]",
+            mask: "9[9.999.999]-[9|K|k]",
           });
 
         $(".tlf").inputmask({
@@ -274,18 +272,7 @@
       	//Eliminar alertas que no contengan la clase alert-important luego de 7seg
       	$('div.alert').not('.alert-important').delay(7000).slideUp(300);
 
-         $(".img_upload").fileinput({
-            browseClass: "btn btn-primary btn-block",
-            showCaption: false,
-            browseLabel: "Agregar Foto",
-            browseIcon: "<i class=\"fa fa-file-image-o\"></i> ",
-            showRemove: false,
-            showUpload: false,
-            showCancel: false,
-            showClose: false,
-            dropZoneEnabled: false
-        });
-
+        
 
       	//activar Datatable
         $('.data-table').DataTable({

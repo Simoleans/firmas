@@ -134,7 +134,6 @@
 	}
 
 	$(document).ready(function(){
-
 		//registrar todo el fomulario
 			$("#form_pad").submit(function(e){
 				e.preventDefault();		
@@ -147,7 +146,7 @@
 					success: function (response) {
 						alert(response.msg);
 					   window.location.reload();
-					}
+					},
 				});	
 			}); //fin guardar formulario
 

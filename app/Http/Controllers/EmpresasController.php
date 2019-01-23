@@ -92,7 +92,9 @@ class EmpresasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $empresa = Empresas::findOrfail($id);
+
+        return view('empresas.edit',['empresa' => $empresa]);
     }
 
     /**
@@ -104,7 +106,46 @@ class EmpresasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'logo' => 'image|mimes:jpeg,png,jpg,svg|max:8048',
+        ]);
+
+        $empresa = Empresas::findOrfail($id);
+
+        if (Input::hasFile('logo')) {
+
+           $file = Input::file('logo');
+           $file->move(public_path().'/img/empresas/',date("YmdHi").$file->getClientOriginalName());
+           $nombre = date("YmdHi").$file->getClientOriginalName();
+           $empresa->fill($request->all());
+           $empresa->logo = $nombre;
+             if($empresa->save()){
+                return redirect("empresas")->with([
+                  'flash_message' => 'Empresa modificada correctamente.',
+                  'flash_class' => 'alert-success'
+                  ]);
+              }else{
+                return redirect("empresas")->with([
+                  'flash_message' => 'Ha ocurrido un error.',
+                  'flash_class' => 'alert-danger',
+                  'flash_important' => true
+                  ]);
+              }
+         }else{
+            $empresa->fill($request->all());
+             if($empresa->save()){
+                return redirect("empresas")->with([
+                  'flash_message' => 'Empresa modificada correctamente.',
+                  'flash_class' => 'alert-success'
+                  ]);
+              }else{
+                return redirect("empresas")->with([
+                  'flash_message' => 'Ha ocurrido un error.',
+                  'flash_class' => 'alert-danger',
+                  'flash_important' => true
+                  ]);
+              }
+        }
     }
 
     /**

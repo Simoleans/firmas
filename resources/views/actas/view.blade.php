@@ -64,7 +64,7 @@
             <th class="text-center">Nombre</th>
             <th class="text-center">Apellido</th>
             <th class="text-center">Cargo</th>
-            <th class="text-center">Acción</th>
+            <th class="text-center">URL</th>
           </tr>
          </thead>
          <tbody>
@@ -75,9 +75,9 @@
              <td class="text-center">{{$p->cargo}}</td>
              <td class="text-center">
                 @if($p->firma == NULL)
-                 <a class="btn btn-primary btn-flat btn-sm" href="{{ route('actas.firma',[$p->id])}}"><i class="fa fa-user-plus"></i></a>
+                 <a href="{{ route('actas.firma',[$p->id])}}" target="_blank">{{ route('actas.firma',[$p->id])}}</a>
                 @else
-                 <img src="{{asset('img/actas').'/'.$p->firma}}" class="img-responsive" align="center">
+                 <img src="{{asset('img/actas').'/'.$p->firma}}" class="img-responsive"  align="center">
                 @endif
              </td>
            </tr>

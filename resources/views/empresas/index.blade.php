@@ -55,7 +55,7 @@
 									<td>{{$d->contacto}}</td>
 									<td>{{$d->telefono}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('empresas.show',[$d->id])}}"><i class="fa fa-search"></i></a>
+										<!-- <a class="btn btn-primary btn-flat btn-sm" href="{{ route('empresas.show',[$d->id])}}"><i class="fa fa-search"></i></a> -->
 										<a href="{{route('empresas.edit',[$d->id])}}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
