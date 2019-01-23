@@ -48,6 +48,9 @@
 									<textarea class="form-control" readonly="">{{$empresa->direccion}}</textarea>
 							</div>
 						</div>
+						<div class="col-md-3 col-md-offset-5">
+							<a href="{{route('empresas.edit',['id' => $empresa->id])}}" class="btn btn-warning">Editar Empresa</a>
+						</div>
 						
 					</div>
 					<hr>

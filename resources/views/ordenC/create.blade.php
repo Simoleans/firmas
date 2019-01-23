@@ -48,6 +48,9 @@
 								</select>
 							</div>
 						</div>
+						<div class="col-md-3 col-md-offset-2">
+							<a href="{{route('empresas.edit',['id' => $empresa->id])}}" class="btn btn-warning">Editar Empresa</a>
+						</div>
 					</div>
 					<hr>
 						<h2 class="text-center">Productos</h2>
