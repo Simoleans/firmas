@@ -18,7 +18,10 @@ class OrdenTrabajoController extends Controller
      */
     public function index()
     {
-        //
+        $ordenes = OrdenTrabajo::where('id_user',Auth::user()->id)->get();
+
+        //dd($ordenes);
+        return view('ordenT.index',['ordenest'=>$ordenes]);
     }
 
     /**
@@ -47,7 +50,7 @@ class OrdenTrabajoController extends Controller
             // $file = Input::file('logo');
             // $file->move(public_path().'/img/empresas/', date("YmdHi").$file->getClientOriginalName());
             $name = 'ot'.md5(date("dmYhisA")).'.png';
-            $nombre = public_path().'/img/firmas/ordent'.$name;
+            $nombre = public_path().'/img/firmas/ordent/'.$name;
 
             //dd($name);
 

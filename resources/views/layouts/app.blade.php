@@ -161,7 +161,7 @@
                 <li><a href="{{route('empresas.index')}}"><i class="fa fa-circle-o"></i> Mis Empresa</a></li>
               </ul>
             </li>
-
+        @if($empresa > 0) {{-- Si tiene empresa registrada --}}
              <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
@@ -200,18 +200,6 @@
               </ul>
             </li>
 
-            {{-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-print"></i>
-                <span>Documentos</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{route('ordencompra.create')}}"><i class="fa fa-circle-o"></i> Orden Compra</a></li>
-                <li><a href="{{route('ordencompra.index')}}"><i class="fa fa-circle-o"></i> Mis Ordenes De Compra</a></li>
-              </ul>
-            </li> --}}
-
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-file-o"></i>
@@ -223,7 +211,7 @@
                 <li><a href="{{route('actas.index')}}"><i class="fa fa-circle-o"></i>Ver Actas</a></li>
               </ul>
             </li>
-
+        @endif {{-- Fin de validacion si tiene empresa registrada --}}
             <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>
