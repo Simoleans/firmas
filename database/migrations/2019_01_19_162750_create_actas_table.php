@@ -17,7 +17,7 @@ class CreateActasTable extends Migration
             $table->increments('id');
             $table->string('codigo');
             $table->integer('id_user')->unsigned(); //saber que usuario registro el proveedor
-            $table->foreign('id_user')->references('id')->on('empresas')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->integer('id_empresa')->unsigned(); //saber que usuario registro el proveedor
             $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('cascade');
             $table->longText('observaciones')->nullable();

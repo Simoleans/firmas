@@ -173,9 +173,34 @@
                 <li><a href="{{route('proveedor.index')}}"><i class="fa fa-circle-o"></i> Mis Proveedores</a></li>
               </ul>
             </li>
+          
+          <li class="treeview">
+              <a href="#"><i class="fa fa-print"></i> Ordenes
+                  <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Orden De Compra
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{route('ordencompra.create')}}"><i class="fa fa-circle-o"></i> Registrar Orden De Compra</a></li>
+                    <li><a href="{{route('ordencompra.index')}}"><i class="fa fa-circle-o"></i> Ver Ordenes De Compra</a></li>
+                  </ul>
+                </li>
+                 <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Orden De Trabajo
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{route('ordentrabajo.create')}}"><i class="fa fa-circle-o"></i> Registrar Orden De Trabajo</a></li>
+                    <li><a href="{{route('ordentrabajo.index')}}"><i class="fa fa-circle-o"></i> Ver Ordenes De Trabajo</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
 
-
-            <li class="treeview">
+            {{-- <li class="treeview">
               <a href="#">
                 <i class="fa fa-print"></i>
                 <span>Documentos</span>
@@ -185,12 +210,12 @@
                 <li><a href="{{route('ordencompra.create')}}"><i class="fa fa-circle-o"></i> Orden Compra</a></li>
                 <li><a href="{{route('ordencompra.index')}}"><i class="fa fa-circle-o"></i> Mis Ordenes De Compra</a></li>
               </ul>
-            </li>
+            </li> --}}
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-file-o"></i>
-                <span>Actas</span>
+                <span>Acta De Asistencia</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">

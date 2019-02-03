@@ -15,11 +15,12 @@
 Route::get('/', function () {
   return view('login');
 })->name('login');
+
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
 /* Actas */
-Route::resource('/actas','ActasController');
+Route::resource('/actas','ActasController',['except' => ['store']]);
 Route::get('actas/pdf/{id}','ActasController@pdf')->name('actas.pdf');
 Route::get('actas/firma/{id}','ActasController@firma')->name('actas.firma');
 Route::post('/actas/signature','ActasController@firmaSend')->name('actas.send');
@@ -42,8 +43,13 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	/* Orden De Compra */
 	Route::resource('/ordencompra','OrdenCompraController');
 	Route::get('/orden/pdf/{id}','OrdenCompraController@pdf')->name('ordencompra.pdf');
-	
 
+	/* Orden Trabajo */
+	Route::resource('/ordentrabajo','OrdenTrabajoController');
+	Route::get('/ordent/pdf/{id}','OrdenCompraController@pdf')->name('ordentrabajo.pdf');
+
+	Route::resource('/actas','ActasController');
+	
 });
 
 	
