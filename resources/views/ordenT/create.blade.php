@@ -56,7 +56,30 @@
 						
 					</div>
 					<hr>
-						 <h2 class="text-center">Acciones Realizadas</h2>
+					<h4>Datos de responsable</h4>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ $errors->has('empresa')?'has-error':'' }}">
+								<label class="control-label" for="empresa">Nombre: *</label>
+									<input id="empresa" class="form-control" type="text"  value="{{strtoupper(Auth::user()->nombre)}}" placeholder="Razon Social" required readonly>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
+								<label class="control-label" for="razon_social">RUT: *</label>
+									<input id="razon_social" class="form-control" type="text"  value="{{strtoupper(Auth::user()->rut_user)}}" placeholder="Razon Social" required readonly>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
+								<label class="control-label" for="razon_social">Dirección: *</label>
+									<textarea class="form-control" readonly="">{{Auth::user()->direccion_user}}</textarea>
+							</div>
+						</div>
+						
+					</div>
+					<hr>
+						 <h2 class="text-center">Fechas</h2>
 					    <hr>
 						<div class="field_wrapper_acciones row">
 							<div class="col-md-6">
@@ -81,7 +104,7 @@
 						</div> --}}
 					
 					<hr>
-						<h2 class="text-center">Participantes</h2>
+						<h2 class="text-center">Detalles De Trabajos</h2>
 					<hr>
 						<div class="field_wrapper row">
 							<div class="col-md-6">
@@ -113,6 +136,7 @@
 										<div class="typed"></div>
 										<canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
 									</div>
+									<h3 class="tag-ingo text-center">Responsable:</h3>
 									<h3 class="tag-ingo text-center">{{Auth::user()->nombre}}</h3>
 									
 								</div>
