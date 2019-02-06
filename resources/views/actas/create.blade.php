@@ -28,6 +28,7 @@
 					{{ method_field( 'POST' ) }}
 					{{ csrf_field() }}
 					<input type="hidden" name="id_empresa" value="{{$empresa->id}}">
+					<input type="hidden" name="id_user" value="{{Auth::user()->id}}">
 					<h4>Datos de la empresa</h4>
 					<div class="row">
 						<div class="col-md-4">
