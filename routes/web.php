@@ -54,8 +54,12 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	Route::resource('/ordentrabajo','OrdenTrabajoController');
 	Route::get('/ordent/pdf/{id}','OrdenTrabajoController@pdf')->name('ordentrabajo.pdf');
 	Route::post('/mail/ordent','OrdenTrabajoController@sendEmail')->name('ordentrabajo.mail');
-
+	/* actas*/
 	Route::resource('/actas','ActasController');
+
+	/* Guia Despacho */
+	Route::resource('/guiadespacho','GuiaDespachoController');
+	Route::post('/guiaDespacho/empresa','GuiaDespachoController@empresa')->name('guiadespacho.empresa');
 	
 });
 

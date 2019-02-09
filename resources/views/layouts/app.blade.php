@@ -173,8 +173,34 @@
                 <li><a href="{{route('proveedor.index')}}"><i class="fa fa-circle-o"></i> Mis Proveedores</a></li>
               </ul>
             </li>
+
+            <li class="treeview">
+              <a href="#"><i class="fa fa-arrows-alt"></i> Guias
+                  <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Guia De Despacho
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{route('guiadespacho.create')}}"><i class="fa fa-circle-o"></i> Registrar Guia De Despacho</a></li>
+                    <li><a href="{{route('guiadespacho.index')}}"><i class="fa fa-circle-o"></i> Ver Guias De Despacho</a></li>
+                  </ul>
+                </li>
+                 <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Guia De Entrega
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{route('ordentrabajo.create')}}"><i class="fa fa-circle-o"></i> Registrar Guia De Entrega</a></li>
+                    <li><a href="{{route('ordentrabajo.index')}}"><i class="fa fa-circle-o"></i> Ver Guias De Entrega</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
           
-          <li class="treeview">
+           <li class="treeview">
               <a href="#"><i class="fa fa-print"></i> Ordenes
                   <i class="fa fa-angle-left pull-right"></i>
               </a>

@@ -150,6 +150,7 @@ class OrdenTrabajoController extends Controller
 
     public function sendEmail(Request $request)
     {
+        //dd(env('MAIL_HOST'));
         $url = route('ordentrabajo.firma',[$request->id]);
 
         $orden = OrdenTrabajo::findOrfail($request->id);
