@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title> Orden De Compra </title>
+  <title> Orden De Trabajo </title>
 </head>
 
 <style type="text/css">
@@ -8347,7 +8347,7 @@ button.close {
       </div>
     </div>
 
-      <h4 class="text-center">Orden De Compra <strong>{{$orden->cod_seguimiento}}</strong></h4>
+      <h4 class="text-center">Orden De Trabajo <strong>{{$orden->cod_seguimiento}}</strong></h4>
 
       <div class="row">
         <div class="col-md-12">
@@ -8375,68 +8375,55 @@ button.close {
         </div>
 
         <div class="col-md-12">
-          <h4 class="text-left">Datos del proveedor</h4>
-          <table border="2">
-            <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Razón Social</td>
-              <td class="text-center" height="4">{{strtoupper($orden->proveedor->razon_social)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Ciudad</td>
-              <td class="text-center" height="4">{{strtoupper($orden->proveedor->ciudad)}}</td>
-            </tr>
-             <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Contacto</td>
-              <td class="text-center" height="4">{{strtoupper($orden->proveedor->contacto)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">RUT</td>
-              <td class="text-center" height="4">{{strtoupper($orden->proveedor->rut_proveedor)}}</td>
-            </tr>
-             <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Dirección</td>
-              <td class="text-center" height="4">{{strtoupper($orden->proveedor->direccion_proveedor)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Teléfono</td>
-              <td class="text-center" height="4">{{strtoupper($orden->proveedor->telefono_proveedor)}}</td>
-            </tr>
-          </table>
+          <p><b>Responsable:</b> {{$orden->user->nombre}}</p>
+          <p><b>Fecha:</b> {{$orden->created_at->format('Y-m-d')}}</p>
+          <p><b>Fecha Inicio: </b>{{$orden->fecha_inicio}}</p>
+          <p><b>Fecha Final: </b>{{$orden->fecha_fin}}</p>
         </div>
 
         <div class="col-md-12">
-          <h4 class="text-left">Productos a Adquirir</h4>
+          <h4 class="text-left">Detalles de Trabajo</h4>
           <table border="1">
             <tr>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">No. Parte/Tipo Modelo</td>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Descripcion del Producto</td>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Precio Unt.</td>
+              <td class="text-center" height="2" width="100" style="background-color: #A4A4A4; color:#000000">#</td>
+              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Nombre</td>
               <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Cantidad</td>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Precio Total*</td>
+
             </tr>
-            @foreach($productos as $p)
+            @foreach($detalles as $p)
                <tr>
-                <td class="text-center" height="2" width="100" >{{$p->tipo_modelo}}</td>
-                <td class="text-center" height="2" width="100" >{{strtoupper($p->producto)}}</td>
-                <td class="text-center" height="2" width="100" >{{number_format($p->precio_unt) }}</td>
+                <td class="text-center" height="2" width="100">{{$loop->index+1}}</td>
+                <td class="text-center" height="2" width="100" >{{strtoupper($p->nombre)}}</td>
                 <td class="text-center" height="2" width="100" >{{$p->cantidad}}</td>
-                <td class="text-center" height="2" width="100" >{{number_format($p->precio_total)}}</td>
               </tr>
             @endforeach
-            <tr> 
-              <th colspan="4" style="background-color: #A4A4A4; color:#000000" height="3">SUBTOTAL</th>
-              <td class="text-center" height="3">{{number_format($productos->sum('precio_total'))}}</td>
-            </tr> 
-            <tr>
-             <th colspan="4" style="background-color: #A4A4A4; color:#000000" height="3">IVA</th>
-            <td class="text-center" height="3">1900</td> 
-            </tr> 
-            <tr> 
-             <th colspan="4" style="background-color: #A4A4A4; color:#000000" height="3">TOTAL</th> 
-             <td class="text-center" height="3">{{number_format($productos->sum('precio_total') + 1900)}}</td> 
-            </tr>
+            
           </table>
         </div>
-
-        <div align="center">
-          <img src="{{asset('img/firmas'.'/'.$orden->firma)}}"><br>
-          <small>{{Auth::user()->nombre}}</small>
-        </div>
       </div> {{-- fin row --}}
+
+      <br>
+      <br>
+      <br>
+
+       <div class="row">
+          <div class="col-xs-6">
+            <div align="center">
+              <img src="{{asset('img/firmas/ordent'.'/'.$orden->firma)}}"><br>
+              <small>Responsable: {{Auth::user()->nombre}}</small>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div align="center">
+            @if(!$orden->status)
+              <h3>Sin Confirmar</h3>
+            @else
+              <img src="{{asset('img/firmas/ordent'.'/'.$orden->firma_receptor)}}"><br>
+              <small>Confirmacion</small>
+            @endif
+            </div>
+          </div>
+        </div>
    
   </div> {{-- Fin content --}}
 

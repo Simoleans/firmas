@@ -23,6 +23,8 @@ class OrdenTrabajo extends Migration
             $table->string('fecha_inicio');
             $table->string('fecha_fin');
             $table->string('firma');
+            $table->string('firma_receptor')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

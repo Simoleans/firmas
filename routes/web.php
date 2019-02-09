@@ -19,6 +19,12 @@ Route::get('/', function () {
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
+/* Orden trabajo */
+
+Route::resource('/ordentrabajo','OrdenTrabajoController',['except' => ['store']]);
+Route::get('ordenT/firma/{id}','OrdenTrabajoController@firma')->name('ordentrabajo.firma');
+Route::post('/ordenT/signature','OrdenTrabajoController@firmaSend')->name('ordentrabajo.send');
+
 /* Actas */
 Route::resource('/actas','ActasController',['except' => ['store']]);
 Route::get('actas/pdf/{id}','ActasController@pdf')->name('actas.pdf');
@@ -46,7 +52,8 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 
 	/* Orden Trabajo */
 	Route::resource('/ordentrabajo','OrdenTrabajoController');
-	Route::get('/ordent/pdf/{id}','OrdenCompraController@pdf')->name('ordentrabajo.pdf');
+	Route::get('/ordent/pdf/{id}','OrdenTrabajoController@pdf')->name('ordentrabajo.pdf');
+	Route::post('/mail/ordent','OrdenTrabajoController@sendEmail')->name('ordentrabajo.mail');
 
 	Route::resource('/actas','ActasController');
 	
