@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\ProductosCompras;
 use App\EmpresaDespacho;
 use App\GuiaDespacho;
 use App\Empresas;
@@ -43,15 +44,43 @@ class GuiaDespachoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
 
             $codigo=rand(11111, 99999);
             // $file = Input::file('logo');
             // $file->move(public_path().'/img/empresas/', date("YmdHi").$file->getClientOriginalName());
-            $name = 'ot'.md5(date("dmYhisA")).'.png';
-            $nombre = public_path().'/img/firmas/ordent/'.$name;
+            $name = 'gd'.md5(date("dmYhisA")).'.png';
+            $nombre = public_path().'/img/firmas/guiad/'.$name;
 
             $guia = new GuiaDespacho;
+            $guia->cod_seguimiento = 'GD'.$codigo;
+            $guia->id_user = Auth::user()->id;
+            $guia->id_empresa = $request->id_empresa;
+            $guia->id_empresa_despacho = $request->id_empresa_despacho;
+            $guia->observaciones = $request->observaciones;
+            $guia->firma = $name;
+
+            if ($guia->save()) {
+
+                file_put_contents($nombre,base64_decode($request->firma));
+
+                 for ($i=0; $i < count($request->producto); $i++) { 
+           
+                    $productos = new ProductosCompras;;
+                    $productos->cod_seguimiento = 'GD'.$codigo;
+                    $productos->tipo_modelo = $request->tipo_modelo[$i];
+                    $productos->producto = $request->producto[$i];
+                    $productos->precio_unt = $request->precio_unt[$i];
+                    $productos->cantidad = $request->cantidad[$i];
+                    $productos->precio_total  = $request->cantidad[$i] * $request->precio_unt[$i];
+                    $productos->save();
+
+                 }//fin for
+                  return response()->json(['msg'=>'Se registro correctamente']);
+            }
+
+
+            
     }
 
     /**

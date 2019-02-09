@@ -105,6 +105,17 @@
 						        <a href="javascript:void(0);" class=" btn btn-sm btn-success add_button" title="Add field"><i class="fa fa-plus"></i></a>
 						    </div>
 
+						    <hr>
+						 <h2 class="text-center">Observaciones</h2>
+					    <hr>
+						
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="razon_social">Observación: *</label>
+										<textarea class="form-control" name="observaciones" placeholder="Observación"></textarea>
+								</div>
+							</div>
+
 						    <div class="col-md-6 col-md-offset-3">
 						    	{{-- <label class="control-label" for="Firma">Firma: *</label> --}}
 								<div id="signArea" >
