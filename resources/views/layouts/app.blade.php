@@ -70,7 +70,7 @@
     
 	  </style>
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-mini @guest sidebar-collapse @endguest">
     <div class="wrapper">
       <header class="main-header">
         <!-- Logo -->
@@ -273,7 +273,7 @@
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
       <footer class="main-footer">
-        <strong>Copyright &copy; 2016-2017 <a href="#">Desarrollador</a>.</strong> Todos los derechos reservados.
+        <strong>Copyright &copy; 2018-2019 <a href="#">Desarrollador</a>.</strong> Todos los derechos reservados.
       </footer>
     </div><!-- .wrapper -->
     <!-- jQuery 2.1.4 -->

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\ProductosCompras;
 use App\EmpresaDespacho;
 use App\GuiaDespacho;
+use App\Mail\GuiaD;
 use App\Empresas;
 use PDF;
 
@@ -92,9 +93,13 @@ class GuiaDespachoController extends Controller
      * @param  \App\GuiaDespacho  $guiaDespacho
      * @return \Illuminate\Http\Response
      */
-    public function show(GuiaDespacho $guiaDespacho)
+    public function show($id)
     {
-        //
+         $guia = GuiaDespacho::findOrfail($id);
+
+         $productos = ProductosCompras::where('cod_seguimiento',$guia->cod_seguimiento)->get();
+
+         return view('guiad.view',['guia' => $guia,'productos' => $productos]);
     }
 
     /**
@@ -169,5 +174,47 @@ class GuiaDespachoController extends Controller
           $pdf = PDF::loadView('guiad.pdf',['guia'=>$guia,'productos'=>$productos]);
             
             return $pdf->download($guia->cod_seguimiento.'.pdf');
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $url = route('guiadespacho.firma',[$request->id]);
+
+        $guia = GuiaDespacho::findOrfail($request->id);
+         \Mail::to($request->email)
+                 ->send(new GuiaD($url,$guia));
+
+         return redirect("guiadespacho")->with([
+          'flash_message' => 'Correo enviado correctamente.',
+          'flash_class' => 'alert-success'
+          ]);
+    }
+    public function firma($id)
+    {
+        $guia = GuiaDespacho::findOrfail($id);
+
+        $productos = ProductosCompras::where('cod_seguimiento',$guia->cod_seguimiento)->get();
+
+        //dd($productos);
+
+        return view('guiad.firma',['guia' => $guia,'productos' => $productos]);
+    }
+
+     public function firmaSend(Request $request)
+    {
+
+         $name = 'gd'.md5(date("dmYhisA")).'.png';
+         $nombre = public_path().'/img/firmas/guiad/'.$name;
+
+         $guia = GuiaDespacho::findOrfail($request->id_guia);
+
+         $guia->firma_receptor = $name;
+         $guia->status = 1;
+
+        if ($guia->save()) {
+             file_put_contents($nombre,base64_decode($request->firma));
+
+             return response()->json(['msg' => 'Se ha registrado correctamente']);
+        }
     }
 }

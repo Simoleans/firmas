@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrdenT extends Mailable
+class GuiaD extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,12 +17,12 @@ class OrdenT extends Mailable
      * @return void
      */
      public $url;
-     public $orden;
+     public $guia;
      
-    public function __construct($url,$orden)
+    public function __construct($url,$guia)
     {
         $this->url = $url;
-        $this->orden = $orden;
+        $this->guia = $guia;
     }
 
     /**
@@ -32,8 +32,8 @@ class OrdenT extends Mailable
      */
     public function build()
     {
-        return $this->view('ordenT.mail')
+        return $this->view('guiad.mail')
                     ->from('no-reply@actas.veanx.cl')
-                    ->subject('Firma La Orden De Trabajo');
+                    ->subject('Firma La Guia De Despacho');
     }
 }

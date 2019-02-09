@@ -19,8 +19,12 @@ Route::get('/', function () {
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
-/* Orden trabajo */
+/* Guia De Despacho */
+Route::resource('/guiadespacho','GuiaDespachoController',['except' => ['store']]);
+Route::get('guiaD/firma/{id}','GuiaDespachoController@firma')->name('guiadespacho.firma');
+Route::post('/guiaD/signature','GuiaDespachoController@firmaSend')->name('guiadespacho.send');
 
+/* Orden trabajo */
 Route::resource('/ordentrabajo','OrdenTrabajoController',['except' => ['store']]);
 Route::get('ordenT/firma/{id}','OrdenTrabajoController@firma')->name('ordentrabajo.firma');
 Route::post('/ordenT/signature','OrdenTrabajoController@firmaSend')->name('ordentrabajo.send');
@@ -61,6 +65,7 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	Route::resource('/guiadespacho','GuiaDespachoController');
 	Route::post('/guiaDespacho/empresa','GuiaDespachoController@empresa')->name('guiadespacho.empresa');
 	Route::get('/guiad/pdf/{id}','GuiaDespachoController@pdf')->name('guiadespacho.pdf');
+	Route::post('/mail/guiad','GuiaDespachoController@sendEmail')->name('guiadespacho.mail');
 	
 });
 
