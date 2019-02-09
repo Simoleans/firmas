@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	/* Guia Despacho */
 	Route::resource('/guiadespacho','GuiaDespachoController');
 	Route::post('/guiaDespacho/empresa','GuiaDespachoController@empresa')->name('guiadespacho.empresa');
+	Route::get('/guiad/pdf/{id}','GuiaDespachoController@pdf')->name('guiadespacho.pdf');
 	
 });
 

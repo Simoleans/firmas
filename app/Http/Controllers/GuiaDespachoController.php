@@ -19,7 +19,10 @@ class GuiaDespachoController extends Controller
      */
     public function index()
     {
-        //
+         $guia = GuiaDespacho::where('id_user',Auth::user()->id)->get();
+        //dd($actas);
+
+        return view('guiad.index',['guia' => $guia]);
     }
 
     /**
@@ -153,5 +156,18 @@ class GuiaDespachoController extends Controller
             return response()->json(['msg' => 'Ha ocurrido un error','status' => false,'empresas' => $empresas]);
 
         }
+    }
+
+    public function pdf($id)
+    {
+         $guia = GuiaDespacho::findOrfail($id);
+
+         $productos = ProductosCompras::where('cod_seguimiento',$guia->cod_seguimiento)->get();
+
+        //dd($productos);
+
+          $pdf = PDF::loadView('guiad.pdf',['guia'=>$guia,'productos'=>$productos]);
+            
+            return $pdf->download($guia->cod_seguimiento.'.pdf');
     }
 }
