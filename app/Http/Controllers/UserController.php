@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Mail\Users;
 use App\User;
+use App\Empresas;
 
 class UserController extends Controller
 {
@@ -88,6 +90,62 @@ class UserController extends Controller
             ]);
         }
       }
+    }
+
+    public function invitar($token,$id)
+    {
+      //dd($id);
+      return view('empresas.invitacion',['id' => $id]);
+    }
+
+    public function store_invitacion(Request $request)
+    {
+      $this->validate($request, [
+          'rut_user' => 'required|unique:users',
+          'email' =>'required|email|unique:users',
+          'password' => 'required|min:6|confirmed'
+        ]);
+
+        $user = new User;
+        $user->fill($request->all());
+        $user->password = bcrypt($request->input('password'));
+
+        if ($user->save()) {
+          $user = User::orderBy('created_at', 'desc')->first();
+          $empresa = Empresas::findOrfail($request->id_empresa);
+          //dd($empresa->toArray());
+           $empresa_save = new Empresas;
+           $empresa_save->fill($empresa->toArray());
+           $empresa_save->logo = $empresa->logo;
+           $empresa_save->id_user = $user->id;
+
+             if($empresa_save->save()){
+              return redirect("/")->with([
+                'flash_message' => 'Usuario agregado correctamente.',
+                'flash_class' => 'alert-success'
+                ]);
+            }else{
+              return redirect("/")->with([
+                'flash_message' => 'Ha ocurrido un error.',
+                'flash_class' => 'alert-danger',
+                'flash_important' => true
+                ]);
+            }
+        }
+    }
+
+    public function sendEmail(Request $request)
+    {
+      $url = route('users.invitar',['id'=>$request->id,'token' => str_random(60)]);
+
+        $empresa = Empresas::findOrfail($request->id);
+         \Mail::to($request->email)
+                 ->send(new Users($url,$empresa));
+
+         return redirect("empresas")->with([
+          'flash_message' => 'Correo enviado correctamente.',
+          'flash_class' => 'alert-success'
+          ]);
     }
 
     /**

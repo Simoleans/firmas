@@ -20,6 +20,12 @@ Route::get('/registrate', function () {
   return view('register');
 })->name('users.registrar');
 
+Route::post('/users/invitation','UserController@store_invitacion')->name('users.storeInivitation');
+
+Route::get('/register/partner/{id}','UserController@invitation')->name('users.invitar');
+
+Route::get('/users/{token}/{id}/register','UserController@invitar')->name('users.invitar');
+
 Route::post('/users/register','UserController@register')->name('users.regist');
 
 Route::post('auth', 'LoginController@login')->name('auth');
@@ -57,6 +63,7 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	Route::get('dashboard', 'LoginController@index')->name('dashboard');
 	/* --- Usuarios ---*/
 	Route::resource('/users','UserController');
+
 	
 	//* --- Perfil --- */
 	Route::get('/perfil', 'UserController@perfil')->name('perfil');
@@ -64,6 +71,7 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 
 	/* Empresas */
 	Route::resource('/empresas','EmpresasController');
+	Route::post('empresas/sendmail','UserController@sendEmail')->name('empresas.mail');
 
 	/* Proveedores */
 	Route::resource('/proveedor','ProveedoresController');

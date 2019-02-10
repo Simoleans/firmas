@@ -92,7 +92,9 @@ class EmpresasController extends Controller
      */
     public function show($id)
     {
-        //
+        $empresa = Empresas::findOrfail($id);
+
+        return view('empresas.view',['empresa' => $empresa]);
     }
 
     /**
