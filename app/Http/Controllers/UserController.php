@@ -62,6 +62,34 @@ class UserController extends Controller
       }
     }
 
+    public function register(Request $request)
+    {
+      {
+        $this->validate($request, [
+          'rut_user' => 'required|unique:users',
+          'email' =>'required|email|unique:users',
+          'password' => 'required|min:6|confirmed'
+        ]);
+
+        $user = new User;
+        $user->fill($request->all());
+        $user->password = bcrypt($request->input('password'));
+
+        if($user->save()){
+          return redirect("/")->with([
+            'flash_message' => 'Usuario agregado correctamente.',
+            'flash_class' => 'alert-success'
+            ]);
+        }else{
+          return redirect("/")->with([
+            'flash_message' => 'Ha ocurrido un error.',
+            'flash_class' => 'alert-danger',
+            'flash_important' => true
+            ]);
+        }
+      }
+    }
+
     /**
      * Display the specified resource.
      *

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title> Guia De Despacho </title>
+  <title> Recibo De Gastos </title>
 </head>
 
 <style type="text/css">
@@ -8343,11 +8343,11 @@ button.close {
   <div class="content">
     <div class="row">
       <div class="col-md-6">
-        <img class="" src="{{asset('img/empresas'.'/'.$guia->empresa->logo)}}" height="170" width="190">
+        <img class="" src="{{asset('img/empresas'.'/'.$recibo->empresa->logo)}}" height="170" width="190">
       </div>
     </div>
 
-      <h4 class="text-center">Guia De Despacho <strong>{{$guia->cod_seguimiento}}</strong></h4>
+      <h4 class="text-center">Recibo De Gasto <strong>{{$recibo->cod_seguimiento}}</strong></h4>
 
       <div class="row">
         <div class="col-md-12">
@@ -8355,70 +8355,33 @@ button.close {
           <table border="2">
             <tr>
               <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Razón Social</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa->r_social)}}</td>
+              <td class="text-center" height="4">{{strtoupper($recibo->empresa->r_social)}}</td>
               <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Ciudad</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa->ciudad)}}</td>
+              <td class="text-center" height="4">{{strtoupper($recibo->empresa->ciudad)}}</td>
             </tr>
              <tr>
               <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Contacto</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa->contacto)}}</td>
+              <td class="text-center" height="4">{{strtoupper($recibo->empresa->contacto)}}</td>
               <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">RUT</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa->rut)}}</td>
+              <td class="text-center" height="4">{{strtoupper($recibo->empresa->rut)}}</td>
             </tr>
              <tr>
               <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Dirección</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa->direccion)}}</td>
+              <td class="text-center" height="4">{{strtoupper($recibo->empresa->direccion)}}</td>
               <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Teléfono</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa->telefono)}}</td>
+              <td class="text-center" height="4">{{strtoupper($recibo->empresa->telefono)}}</td>
             </tr>
           </table>
         </div>
-
+      <br>
         <div class="col-md-12">
-          <h4 class="text-left">Empresa Receptora</h4>
-          <table border="2">
-            <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Razón Social</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->r_social)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Ciudad</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->ciudad)}}</td>
-            </tr>
-             <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Contacto</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->contacto)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">RUT</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->rut)}}</td>
-            </tr>
-             <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Dirección</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->direccion)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Teléfono</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->telefono)}}</td>
-            </tr>
-          </table>
-        </div>
-
-        <div class="col-md-12">
-          <h4 class="text-left">Productos a Adquirir</h4>
-          <table border="1">
-            <tr>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">No. Parte/Tipo Modelo</td>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Descripcion del Producto</td>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Precio Unt.</td>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Cantidad</td>
-              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Precio Total*</td>
-            </tr>
-            @foreach($productos as $p)
-               <tr>
-                <td class="text-center" height="2" width="100" >{{$p->tipo_modelo}}</td>
-                <td class="text-center" height="2" width="100" >{{strtoupper($p->producto)}}</td>
-                <td class="text-center" height="2" width="100" >{{number_format($p->precio_unt) }}</td>
-                <td class="text-center" height="2" width="100" >{{$p->cantidad}}</td>
-                <td class="text-center" height="2" width="100" >{{number_format($p->precio_total)}}</td>
-              </tr>
-            @endforeach
-          </table>
-          <h4>Observaciones: {{$guia->observaciones?$guia->observciones:'N/T'}}</h4>
+          <h4 class="text-left">Detalles del recibo</h4>
+          <p><b>Concepto: </b>{{strtoupper($detalle->concepto)}}</p>
+          <p><b>Cantidad:</b> {{number_format($detalle->cantidad)}}</p>
+          <p><b>Cuenta:</b> {{$detalle->cuenta}}</p>
+          <p><b>Tipo De Pago:</b> {{strtoupper($detalle->transferencia_efectivo)}}</p>
+          <p><b>Adicional:</b> {{strtoupper($detalle->adicional?$detalle->adicional:'N/T')}}</p>
+          <p><b>Observaciones:</b> {{strtoupper($detalle->observaciones?$detalle->observaciones:'N/T')}}</p>
         </div>
       </div> {{-- fin row --}}
       <br>
@@ -8427,17 +8390,18 @@ button.close {
       <div class="row">
           <div class="col-xs-6">
             <div align="center">
-              <img src="{{asset('img/firmas/guiad'.'/'.$guia->firma)}}"><br>
-              <small>Responsable: {{Auth::user()->nombre}}</small>
+              <img src="{{asset('img/firmas/recibog'.'/'.$recibo->firma)}}"><br>
+              <small>Responsable: {{strtoupper(Auth::user()->nombre)}}</small>
             </div>
           </div>
            <div class="col-xs-6">
             <div align="center">
-               @if(!$guia->status)
+               @if(!$recibo->status)
                   <h3>Sin Confirmar</h3>
+                  <small>{{strtoupper($recibo->recibe)}}</small>
                @else
-                  <img src="{{asset('img/firmas/guiad'.'/'.$orden->firma_receptor)}}"><br>
-                  <small>Confirmacion Del Receptor</small>
+                  <img src="{{asset('img/firmas/recibog'.'/'.$recibo->firma_receptor)}}"><br>
+                  <small>Confirmacion De {{strtoupper($recibo->recibe)}}</small>
                @endif
             </div>
           </div>

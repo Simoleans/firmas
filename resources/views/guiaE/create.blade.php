@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title','Guia De Despacho - '.config('app.name'))
-@section('header','Guia De Despacho')
+@section('title','Guia De Entrega - '.config('app.name'))
+@section('header','Guia De Entrega')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-	  <li><a href="{{route('guiadespacho.index')}}" title="Guia De Despacho"> Guia De Despacho </a></li>
-	  <li class="active">Guia De Despacho</li>
+	  <li><a href="{{route('guiaentrega.index')}}" title="Guia De Entrega"> Guia De Entrega </a></li>
+	  <li class="active">Guia De Entrega</li>
 	</ol>
 @endsection
 @section('content')
@@ -20,7 +20,7 @@
 	  	<div class="col-md-12">
 	    	<div class="box box-success">
 		      <div class="box-header with-border">
-		        <h3 class="box-title"><i class="fa fa-users"></i> Registrar Guia De Despacho</h3>
+		        <h3 class="box-title"><i class="fa fa-users"></i> Registrar Guia De Entrega</h3>
 		        <span class="pull-right"></span>
 		       </div>
       			<div class="box-body">
@@ -55,24 +55,11 @@
 						
 					</div>
 					<hr>
-						<h2 class="text-center">Empresa Receptora</h2>
+						<h2 class="text-center">Recibe: </h2>
 						<div class="col-md-12">
 							<div class="form-group">
-								<label class="control-label" for="empresa">Empresa: *</label>
-									<select class="form-control" name="id_empresa_despacho" id="empresa_despacho" required="">
-										@foreach($empresa_despachos as $e)
-											<option value="{{$e->id}}">{{strtoupper($e->r_social)}}</option>
-										@endforeach
-									</select>
-									<span><a data-toggle="modal" data-target="#delModal">Registrar Empresa</a></span>
-							</div>
-						</div>
-						<hr>
-						<h2 class="text-center">Responsable</h2>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="control-label" for="recibe">Nombre Completo: *</label>
-								<input type="text" name="recibe" class="form-control">
+								<label class="control-label" for="empresa">Nombre Completo: *</label>
+								<input type="text" name="recibe" class="form-control" required="">
 							</div>
 						</div>
 					<hr>
@@ -161,81 +148,6 @@
 		</div>
 	</div>
 
-
-	<div id="delModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="delModalLabel">Registrar Empresa</h4>
-        </div>
-        <div class="modal-body">
-        	<div class="content">
-        		<div class="row">
-        			<h4 id="message_error" class="text-danger"></h4>
-		           <form class="" enctype="multipart/form-data" id="form_empresa_despacho">
-					{{ method_field( 'POST' ) }}
-					{{ csrf_field() }}
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group {{ $errors->has('r_social')?'has-error':'' }}">
-								<label class="control-label" for="r_social">Razon Social: *</label>
-								<input id="r_social" class="form-control" type="text" name="r_social" value="{{ old('r_social')?old('r_social'):'' }}" placeholder="Razon Social" required>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group {{ $errors->has('contacto')?'has-error':'' }}">
-								<label class="control-label" for="contacto">Contacto: *</label>
-								<input id="contacto" class="form-control" type="text" name="contacto" value="{{ old('contacto')?old('contacto'):'' }}" placeholder="Contacto" required>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group {{ $errors->has('rut')?'has-error':'' }}">
-								<label class="control-label" for="rut">RUT: *</label>
-								<input id="rut" class="form-control rut" type="text" name="rut" value="{{ old('rut')?old('rut'):'' }}" placeholder="RUT" required>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group {{ $errors->has('ciudad')?'has-error':'' }}">
-								<label class="control-label" for="ciudad">Ciudad: *</label>
-								<input id="ciudad" class="form-control" type="text" name="ciudad" value="{{ old('ciudad')?old('ciudad'):'' }}" placeholder="Ciudad" required>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group {{ $errors->has('telefono')?'has-error':'' }}">
-								<label class="control-label" for="telefono_user">Telefono: *</label>
-								<input id="telefono" class="form-control tlf" type="text" name="telefono" value="{{ old('telefono')?old('telefono_user'):'' }}" placeholder="Telefono" required>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group {{ $errors->has('direccion')?'has-error':'' }}">
-								<label class="control-label" for="direccion_user">Direccion: *</label>
-								<input id="direccion" class="form-control" type="text" name="direccion" value="{{ old('direccion')?old('direccion'):'' }}" placeholder="Direccion" required>
-							</div>
-						</div>
-					</div>
-
-					@if (count($errors) > 0)
-			          <div class="alert alert-danger alert-important">
-				          <ul>
-				            @foreach($errors->all() as $error)
-				              <li>{{$error}}</li>
-				            @endforeach
-				          </ul>  
-			          </div>
-			        @endif
-					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{route('users.index')}}"><i class="fa fa-reply"></i> Atras</a>
-						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
-					</div>
-				</form>
-          </div>
-        	</div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
 @endsection
 
 @section('script')
@@ -262,10 +174,6 @@
 
 						$("#firma").val(img_data);
 
-						$("#clear").click(function(event) {
-							alert("ssf");
-						});
-
 
 						if ( $("p.error").is(':visible') ) {
 						  $("p.error").text("Falta la firma del documento.");
@@ -273,7 +181,7 @@
 						}else{
 							//alert("fdfdfd")
 								$.ajax({
-									url: '{{route('guiadespacho.store')}}',
+									url: '{{route('guiaentrega.store')}}',
 									data: $("#form_pad").serialize(),
 									type: 'post',
 									dataType: 'json',
@@ -307,41 +215,6 @@
         console.log($(this).parent('div'));
         $(this).parent('div').parent('div').parent('div').remove(); //Remove field html
         x--; //Decrement field counter
-    });
-
-
-
-
-    $("#form_empresa_despacho").submit(function(event) {
-    	event.preventDefault();
-    	$.ajax({
-    		url: '{{route('guiadespacho.empresa')}}',
-    		type: 'POST',
-    		dataType: 'json',
-    		data: $("#form_empresa_despacho").serialize(),
-    	})
-    	.done(function(data) {
-    		console.log(data.empresas);
-    		if (data.status) {
-    			$("#delModal").modal('hide');
-    			$("#form_empresa_despacho")[0].reset();
-
-    			var datos = "";
-    			$.each(data.empresas, function(index, val) {
-    				datos += "<option val="+val.id+">"+val.r_social+"</option>";
-    			});
-    			$("#empresa_despacho").html(datos);
-    		}else{
-    			$("#message_error").text(data.msg);
-    		}
-    	})
-    	.fail(function() {
-    		console.log("error");
-    	})
-    	.always(function() {
-    		console.log("complete");
-    	});
-    	
     });
 });// fin document ready
 </script>

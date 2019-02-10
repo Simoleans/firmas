@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Guia De Despacho - '.config('app.name'))
-@section('header','Guia De Despacho')
+@section('title','Guia De Entrega - '.config('app.name'))
+@section('header','Guia De Entrega')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-	  <li class="active"> Guia De Despacho </li>
+	  <li class="active"> Guia De Entrega </li>
 	</ol>
 @endsection
 @section('content')
@@ -16,7 +16,7 @@
         <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
         
         <div class="info-box-content">
-          <span class="info-box-text">Guia De Despacho</span>
+          <span class="info-box-text">Guia De Entrega</span>
           <span class="info-box-number">{{ count($guia) }}</span>
         </div>
         <!-- /.info-box-content -->
@@ -29,9 +29,9 @@
 	  	<div class="col-md-12">
 	    	<div class="box box-danger">
 		      <div class="box-header with-border">
-		        <h3 class="box-title"><i class="fa fa-users"></i> Guias De Despachos</h3>
+		        <h3 class="box-title"><i class="fa fa-users"></i> Guias De Entrega</h3>
 		        <span class="pull-right">
-					<a href="{{ route('guiadespacho.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Guia</a>
+					<a href="{{ route('guiaentrega.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Guia De Entrega</a>
 				</span>
 		      </div>
       			<div class="box-body">
@@ -41,7 +41,7 @@
 								<th class="text-center">Codigo</th>
 								<th class="text-center">Usuario</th>
 								<th class="text-center">Empresa</th>
-								<th class="text-center">Empresa Receptora</th>
+								<th class="text-center">Recibe</th>
 								<th class="text-center">Fecha inicio</th>
 								<th class="text-center">Autorizado</th>
 								<th class="text-center">Accion</th>
@@ -53,12 +53,12 @@
 									<td>{{$d->cod_seguimiento}}</td>
 									<td>{{$d->user->nombre}}</td>
 									<td>{{strtoupper($d->empresa->r_social)}}</td>
-									<td>{{strtoupper($d->empresa_receptora->r_social)}}</td>
+									<td>{{strtoupper($d->recibe)}}</td>
 									<td>{{$d->created_at->format('Y-m-d')}}</td>
 									<td>{{$d->firma_receptor?'Autorizado':'No Autorizado'}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('guiadespacho.show',[$d->id])}}"><i class="fa fa-search"></i></a>
-										 <a class="btn btn-danger btn-flat btn-sm" href="{{ route('guiadespacho.pdf',[$d->id])}}"><i class="fa fa-print"></i></a> 
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('guiaentrega.show',[$d->id])}}"><i class="fa fa-search"></i></a>
+										 <a class="btn btn-danger btn-flat btn-sm" href="{{ route('guiaentrega.pdf',[$d->id])}}"><i class="fa fa-print"></i></a> 
 										{{-- <a href="{{route('ordencompra.edit',[$d->id])}}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>  --}}
 									</td>
 								</tr>

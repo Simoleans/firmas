@@ -61,6 +61,7 @@ class GuiaDespachoController extends Controller
             $guia->id_user = Auth::user()->id;
             $guia->id_empresa = $request->id_empresa;
             $guia->id_empresa_despacho = $request->id_empresa_despacho;
+            $guia->recibe = $request->recibe;
             $guia->observaciones = $request->observaciones;
             $guia->firma = $name;
 
@@ -82,8 +83,6 @@ class GuiaDespachoController extends Controller
                  }//fin for
                   return response()->json(['msg'=>'Se registro correctamente']);
             }
-
-
             
     }
 

@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Guia De Despacho - '.config('app.name'))
-@section('header','Guia De Despacho')
+@section('title','Recibo De Pago - '.config('app.name'))
+@section('header','Recibo De Pago')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('login')}}"><i class="fa fa-home" aria-hidden="true"></i> Login</a></li>
-	  <li> Guia De Despacho {{$guia->cod_seguimiento}} </li>
+	  <li> Recibo De Pago {{$recibo->cod_seguimiento}} </li>
 	  <li class="active">Ver </li>
 	</ol>
 @endsection
@@ -15,42 +15,29 @@
     	<div class="col-md-12">
     		<h2 class="page-header" style="margin-top:0!important">
           <i class="fa fa-user" aria-hidden="true"></i>
-          {{ 'Guia De Despacho '.$guia->cod_seguimiento }}
-          <small class="pull-right">Registrado: {{ $guia->created_at }}</small>
+          {{ 'Recibo De Pago '.$recibo->cod_seguimiento }}
+          <small class="pull-right">Registrado: {{ $recibo->created_at }}</small>
           <span class="clearfix"></span>
         </h2>
     	</div>
+      
 			<div class="col-md-5">
 				<h4>Detalles de la empresa</h4>
-				<p><b>Usuario: </b> {{$guia->user->nombre}} </p>
-        <p><b>Empresa: </b> {{strtoupper($guia->empresa->r_social)}}</p>
-        <p><b>Ciudad: </b> {{strtoupper($guia->empresa->ciudad)}}</p>
-        <p><b>RUT: </b> {{strtoupper($guia->empresa->rut)}}</p>
-        <p><b>Contacto: </b> {{strtoupper($guia->empresa->contacto)}}</p>
-        <p><b>Telefono: </b> {{strtoupper($guia->empresa->telefono)}}</p>
-        <p><b>Direccion: </b> {{strtoupper($guia->empresa->direccion)}}</p>
-        
+				<p><b>Usuario: </b> {{$recibo->user->nombre}} </p>
+        <p><b>Empresa: </b> {{strtoupper($recibo->empresa->r_social)}}</p>
+        <p><b>Ciudad: </b> {{strtoupper($recibo->empresa->ciudad)}}</p>
+        <p><b>RUT: </b> {{strtoupper($recibo->empresa->rut)}}</p>
+        <p><b>Contacto: </b> {{strtoupper($recibo->empresa->contacto)}}</p>
+        <p><b>Telefono: </b> {{strtoupper($recibo->empresa->telefono)}}</p>
+        <p><b>Direccion: </b> {{strtoupper($recibo->empresa->direccion)}}</p>
 			</div>
 
       <div class="col-md-2"> 
         <p>&nbsp;</p>
         <p><b>Logo</b></p>
-        <img src="{{asset('img/empresas/'.$guia->empresa->logo)}}" class="img-responsive">
+        <img src="{{asset('img/empresas/'.$recibo->empresa->logo)}}" class="img-responsive">
       </div>
 		</div>
-
-    <div class="row">
-      <div class="col-md-5">
-        <h4>Detalles de la empresa receptora</h4>
-        <p><b>Empresa: </b> {{strtoupper($guia->empresa_receptora->r_social)}}</p>
-        <p><b>Ciudad: </b> {{strtoupper($guia->empresa_receptora->ciudad)}}</p>
-        <p><b>RUT: </b> {{strtoupper($guia->empresa_receptora->rut)}}</p>
-        <p><b>Contacto: </b> {{strtoupper($guia->empresa_receptora->contacto)}}</p>
-        <p><b>Telefono: </b> {{strtoupper($guia->empresa_receptora->telefono)}}</p>
-        <p><b>Direccion: </b> {{strtoupper($guia->empresa_receptora->direccion)}}</p>
-        
-      </div>
-    </div>
   <br>
     <div class="row">
       <div class="col-md-12">
@@ -63,10 +50,10 @@
       <div class="col-md-12">
          <form method="POST" enctype="multipart/form-data" id="form_pad">
          <meta name="csrf-token" content="{{ csrf_token() }}" />
-          <input type="hidden" name="id_guia" value="{{$guia->id}}">
+          <input type="hidden" name="id_recibo" value="{{$recibo->id}}">
           <input type="hidden" name="firma" id="firma" required>
           <div class="row">
-            @if(!$guia->status)
+            @if(!$recibo->status)
              <div class="col-md-6 col-md-offset-3">
                 {{-- <label class="control-label" for="Firma">Firma: *</label> --}}
               <div id="signArea" >
@@ -74,17 +61,17 @@
                   <div class="typed"></div>
                   <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
                 </div>
-                <h3 class="tag-ingo text-center">{{strtoupper($guia->recibe)}}</h3>
+                <h3 class="tag-ingo text-center">Sr/Sra. {{strtoupper($recibo->recibe)}}</h3>
               </div>
             </div>
            @else
             <div class="col-md-6 col-md-offset-3">
-              <img src="{{asset('img/firmas/guiad').'/'.$guia->firma_receptor}}">
+              <img src="{{asset('img/firmas/recibog').'/'.$recibo->firma_receptor}}">
               <h3 class="tag-ingo text-center">Confirmado</h3>
             </div>
            @endif
           </div>
-        @if(!$guia->status)
+        @if(!$recibo->status)
           <div class="row">
             <div class="form-group text-center">
               <button type="button" id="clear" class="btn btn-warning" align="center">Limpiar firma</button>
@@ -100,35 +87,17 @@
       <div class="col-md-12">
         <h2 class="page-header" style="margin-top:0!important">
           <i class="fa fa-list" aria-hidden="true"></i>
-          Productos
+          Detalles Del Recibo
           <span class="clearfix"></span>
         </h2>
       </div>
-      <div class="col-md-12">
-       <table class="table table-condensed table-hover table-bordered">
-         <thead>
-           <tr>
-            <th class="text-center">#</th>
-            <th class="text-center">Tipo Modelo</th>
-            <th class="text-center">Producto</th>
-            <th class="text-center">Precio</th>
-            <th class="text-center">Cantidad</th>
-            <th class="text-center">Total</th>
-          </tr>
-         </thead>
-         <tbody>
-          @foreach($productos as $a)
-           <tr>
-             <td class="text-center">{{$loop->index+1}}</td>
-             <td class="text-center">{{$a->tipo_modelo}}</td>
-             <td class="text-center">{{$a->producto}}</td>
-             <td class="text-center">{{$a->precio_unt}}</td>
-             <td class="text-center">{{$a->cantidad}}</td>
-             <td class="text-center">{{number_format($a->precio_total)}}</td>
-           </tr>
-          @endforeach
-         </tbody>
-       </table>
+      <div class="col-md-6">
+          <p><b>Concepto: </b>{{strtoupper($detalle->concepto)}}</p>
+          <p><b>Cantidad:</b> {{number_format($detalle->cantidad)}}</p>
+          <p><b>Cuenta:</b> {{$detalle->cuenta}}</p>
+          <p><b>Tipo De Pago:</b> {{strtoupper($detalle->transferencia_efectivo)}}</p>
+          <p><b>Adicional:</b> {{strtoupper($detalle->adicional?$detalle->adicional:'N/T')}}</p>
+          <p><b>Observaciones:</b> {{strtoupper($detalle->observaciones?$detalle->observaciones:'N/T')}}</p>
       </div>
     </div>
 	</section>
@@ -166,7 +135,7 @@
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },
-                  url: '{{route('guiadespacho.send')}}',
+                  url: '{{route('recibogastos.send')}}',
                   data: $("#form_pad").serialize(),
                   type: 'post',
                   dataType: 'json',

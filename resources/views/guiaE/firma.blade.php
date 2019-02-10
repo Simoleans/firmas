@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Guia De Despacho - '.config('app.name'))
-@section('header','Guia De Despacho')
+@section('title','Guia De Entrega - '.config('app.name'))
+@section('header','Guia De Entrega')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('login')}}"><i class="fa fa-home" aria-hidden="true"></i> Login</a></li>
-	  <li> Guia De Despacho {{$guia->cod_seguimiento}} </li>
+	  <li> Guia De Entrega {{$guia->cod_seguimiento}} </li>
 	  <li class="active">Ver </li>
 	</ol>
 @endsection
@@ -15,7 +15,7 @@
     	<div class="col-md-12">
     		<h2 class="page-header" style="margin-top:0!important">
           <i class="fa fa-user" aria-hidden="true"></i>
-          {{ 'Guia De Despacho '.$guia->cod_seguimiento }}
+          {{ 'Guia De Entrega '.$guia->cod_seguimiento }}
           <small class="pull-right">Registrado: {{ $guia->created_at }}</small>
           <span class="clearfix"></span>
         </h2>
@@ -38,19 +38,6 @@
         <img src="{{asset('img/empresas/'.$guia->empresa->logo)}}" class="img-responsive">
       </div>
 		</div>
-
-    <div class="row">
-      <div class="col-md-5">
-        <h4>Detalles de la empresa receptora</h4>
-        <p><b>Empresa: </b> {{strtoupper($guia->empresa_receptora->r_social)}}</p>
-        <p><b>Ciudad: </b> {{strtoupper($guia->empresa_receptora->ciudad)}}</p>
-        <p><b>RUT: </b> {{strtoupper($guia->empresa_receptora->rut)}}</p>
-        <p><b>Contacto: </b> {{strtoupper($guia->empresa_receptora->contacto)}}</p>
-        <p><b>Telefono: </b> {{strtoupper($guia->empresa_receptora->telefono)}}</p>
-        <p><b>Direccion: </b> {{strtoupper($guia->empresa_receptora->direccion)}}</p>
-        
-      </div>
-    </div>
   <br>
     <div class="row">
       <div class="col-md-12">
@@ -74,12 +61,12 @@
                   <div class="typed"></div>
                   <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
                 </div>
-                <h3 class="tag-ingo text-center">{{strtoupper($guia->recibe)}}</h3>
+                <h3 class="tag-ingo text-center">Sr/Sra. {{strtoupper($guia->recibe)}}</h3>
               </div>
             </div>
            @else
             <div class="col-md-6 col-md-offset-3">
-              <img src="{{asset('img/firmas/guiad').'/'.$guia->firma_receptor}}">
+              <img src="{{asset('img/firmas/guiae').'/'.$guia->firma_receptor}}">
               <h3 class="tag-ingo text-center">Confirmado</h3>
             </div>
            @endif
@@ -166,7 +153,7 @@
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },
-                  url: '{{route('guiadespacho.send')}}',
+                  url: '{{route('guiaentrega.send')}}',
                   data: $("#form_pad").serialize(),
                   type: 'post',
                   dataType: 'json',

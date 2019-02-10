@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title> Guia De Despacho </title>
+  <title> Guia De Entrega </title>
 </head>
 
 <style type="text/css">
@@ -8373,30 +8373,8 @@ button.close {
             </tr>
           </table>
         </div>
-
-        <div class="col-md-12">
-          <h4 class="text-left">Empresa Receptora</h4>
-          <table border="2">
-            <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Razón Social</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->r_social)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Ciudad</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->ciudad)}}</td>
-            </tr>
-             <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Contacto</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->contacto)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">RUT</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->rut)}}</td>
-            </tr>
-             <tr>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Dirección</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->direccion)}}</td>
-              <td class="text-center" height="4" style="background-color: #A4A4A4; color:#000000">Teléfono</td>
-              <td class="text-center" height="4">{{strtoupper($guia->empresa_receptora->telefono)}}</td>
-            </tr>
-          </table>
-        </div>
+  <br>
+       <h4>Recibe: {{$guia->recibe}}</h4><br>
 
         <div class="col-md-12">
           <h4 class="text-left">Productos a Adquirir</h4>
@@ -8427,7 +8405,7 @@ button.close {
       <div class="row">
           <div class="col-xs-6">
             <div align="center">
-              <img src="{{asset('img/firmas/guiad'.'/'.$guia->firma)}}"><br>
+              <img src="{{asset('img/firmas/guiae'.'/'.$guia->firma)}}"><br>
               <small>Responsable: {{Auth::user()->nombre}}</small>
             </div>
           </div>
@@ -8436,8 +8414,8 @@ button.close {
                @if(!$guia->status)
                   <h3>Sin Confirmar</h3>
                @else
-                  <img src="{{asset('img/firmas/guiad'.'/'.$orden->firma_receptor)}}"><br>
-                  <small>Confirmacion Del Receptor</small>
+                  <img src="{{asset('img/firmas/guiae'.'/'.$guia->firma_receptor)}}"><br>
+                  <small>Confirmacion De {{$guia->recibe}}</small>
                @endif
             </div>
           </div>

@@ -193,8 +193,8 @@
                       <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{route('ordentrabajo.create')}}"><i class="fa fa-circle-o"></i> Registrar Guia De Entrega</a></li>
-                    <li><a href="{{route('ordentrabajo.index')}}"><i class="fa fa-circle-o"></i> Ver Guias De Entrega</a></li>
+                    <li><a href="{{route('guiaentrega.create')}}"><i class="fa fa-circle-o"></i> Registrar Guia De Entrega</a></li>
+                    <li><a href="{{route('guiaentrega.index')}}"><i class="fa fa-circle-o"></i> Ver Guias De Entrega</a></li>
                   </ul>
                 </li>
               </ul>
@@ -229,6 +229,18 @@
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-file-o"></i>
+                <span>Recibo De Gastos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('recibogastos.create')}}"><i class="fa fa-circle-o"></i>Crear Recibo</a></li>
+                <li><a href="{{route('recibogastos.index')}}"><i class="fa fa-circle-o"></i>Ver Recibos</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-o"></i>
                 <span>Acta De Asistencia</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -238,18 +250,7 @@
               </ul>
             </li>
         @endif {{-- Fin de validacion si tiene empresa registrada --}}
-            <li>
-              <a href="#">
-                <i class="fa fa-plus-square"></i> <span>Ayuda</span>
-                <small class="label pull-right bg-red">PDF</small>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
-                <small class="label pull-right bg-yellow">IT</small>
-              </a>
-            </li>       
+                  
           </ul>
         </section>
         <!-- /.sidebar -->

@@ -1,17 +1,17 @@
 @extends('layouts.app')
-@section('title','Guia De Despacho - '.config('app.name'))
-@section('header','Guia De Despacho')
+@section('title','Guia De Entrega - '.config('app.name'))
+@section('header','Guia De Entrega')
 @section('breadcrumb')
   <ol class="breadcrumb">
     <li><a href="{{route('dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-    <li> Guia De Despacho {{$guia->cod_seguimiento}} </li>
+    <li> Guia De Entrega {{$guia->cod_seguimiento}} </li>
     <li class="active">Ver </li>
   </ol>
 @endsection
 @section('content')
 <section>
-    <a class="btn btn-flat btn-default" href="{{ route('guiadespacho.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-    {{-- <a class="btn btn-flat btn-success" href="{{ route('guiadespacho.edit',[$user->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a> --}}
+    <a class="btn btn-flat btn-default" href="{{ route('guiaentrega.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+    {{-- <a class="btn btn-flat btn-success" href="{{ route('guiaentrega.edit',[$user->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a> --}}
     @if(!$guia->status)
       <button class="btn btn-flat btn-warning" data-toggle="modal" data-target="#delModal"><i class="fa fa-email" aria-hidden="true"></i> Enviar Mail</button>
     @endif
@@ -21,12 +21,12 @@
       <div class="col-md-12">
         <h2 class="page-header" style="margin-top:0!important">
           <i class="fa fa-user" aria-hidden="true"></i>
-          {{ 'Guia De Despacho '.$guia->cod_seguimiento }}
+          {{ 'Guia De Entrega '.$guia->cod_seguimiento }}
           <small class="pull-right">Registrado: {{ $guia->created_at }}</small>
           <span class="clearfix"></span>
         </h2>
       </div>
-      <h3>Recibe: {{strtoupper($guia->recibe)}}</h3>
+      <h3>Recibe: {{$guia->recibe}}</h3>
       <div class="col-md-6">
         <h4>Detalles de la empresa</h4>
         <p><b>Usuario: </b> {{$guia->user->nombre}} </p>
@@ -38,9 +38,9 @@
         <p><b>Direccion: </b> {{strtoupper($guia->empresa->direccion)}}</p>
         <p><b>Firmas:</b></p>
         <div class="row">
-          <div class="col-md-6"> <img src="{{asset('img/firmas/guiad'.'/'.$guia->firma)}}"></div>
+          <div class="col-md-6"> <img src="{{asset('img/firmas/guiae'.'/'.$guia->firma)}}"></div>
           @if($guia->status)
-            <div class="col-md-6"> <img src="{{asset('img/firmas/guiad'.'/'.$guia->firma_receptor)}}"></div>
+            <div class="col-md-6"> <img src="{{asset('img/firmas/guiae'.'/'.$guia->firma_receptor)}}"></div>
           @else
             <h2>Sin Confirmar</h2>
           @endif
@@ -51,18 +51,6 @@
         <p>&nbsp;</p>
         <p><b>Logo</b></p>
         <img src="{{asset('img/empresas/'.$guia->empresa->logo)}}" class="img-responsive">
-      </div>
-    </div>
-<br>
-    <div class="row">
-      <div class="col-md-6">
-        <h4>Detalles de la empresa receptora</h4>
-        <p><b>Empresa: </b> {{strtoupper($guia->empresa_receptora->r_social)}}</p>
-        <p><b>Ciudad: </b> {{strtoupper($guia->empresa_receptora->ciudad)}}</p>
-        <p><b>RUT: </b> {{strtoupper($guia->empresa_receptora->rut)}}</p>
-        <p><b>Contacto: </b> {{strtoupper($guia->empresa_receptora->contacto)}}</p>
-        <p><b>Telefono: </b> {{strtoupper($guia->empresa_receptora->telefono)}}</p>
-        <p><b>Direccion: </b> {{strtoupper($guia->empresa_receptora->direccion)}}</p>
       </div>
     </div>
 <br>
@@ -113,12 +101,12 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form class="col-md-8 col-md-offset-2" action="{{ route('guiadespacho.mail')}}" method="POST">
+            <form class="col-md-8 col-md-offset-2" action="{{ route('guiaentrega.mail')}}" method="POST">
               {{ csrf_field() }}
               <input type="hidden" name="id" value="{{$guia->id}}">
              <label class="control-label">Email: </label>
              <input type="email" name="email" class="form-control">
-            <br>
+                <br>
               <center>
                 <button class="btn btn-flat btn-danger" type="submit">Enviar</button>
                 <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>

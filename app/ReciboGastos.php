@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GuiaEntrega extends Model
+class ReciboGastos extends Model
 {
      public function user()
      {
@@ -15,4 +15,5 @@ class GuiaEntrega extends Model
      {
      	return $this->belongsTo("App\Empresas", "id_empresa");
      }
+
 }

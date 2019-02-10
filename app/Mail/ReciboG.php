@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GuiaE extends Mailable
+class ReciboG extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,7 +16,7 @@ class GuiaE extends Mailable
      *
      * @return void
      */
-     public $url;
+    public $url;
      public $guia;
      
     public function __construct($url,$guia)
@@ -32,8 +32,8 @@ class GuiaE extends Mailable
      */
     public function build()
     {
-        return $this->view('guiae.mail')
+        return $this->view('reciboG.mail')
                     ->from('no-reply@actas.veanx.cl')
-                    ->subject('Firma La Guia De Entrega');
+                    ->subject('Firma El Recibo De Pago');
     }
 }

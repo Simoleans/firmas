@@ -49,6 +49,7 @@
 	        <div class="form-group">
 	            <button id="b-login" type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
 	        </div>
+	        <small><a href="{{route('users.registrar')}}">Registrate Aquí</a></small>
 	      </form> 
 	    </div><!-- /.login-box-body -->
 	  </div><!-- /.login-box -->

@@ -32,7 +32,7 @@
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('apellido')?'has-error':'' }}">
 								<label class="control-label" for="apellido">Nombre completo: *</label>
-								<input id="apellido" class="form-control" type="text" name="nombre" value="{{ old('apellido')?old('apellido'):'' }}" placeholder="Apellido" required>
+								<input id="apellido" class="form-control" type="text" name="nombre" value="{{ old('apellido')?old('apellido'):'' }}" placeholder="Nombre Completo" required>
 							</div>
 						</div>
 						<div class="col-md-6">
