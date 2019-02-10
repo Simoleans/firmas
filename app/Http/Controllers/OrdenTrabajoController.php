@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Proveedor;
 use App\Empresas;
 use App\OrdenTrabajo;
+use App\Participantes;
 use App\DetalleOTrabajo;
 use App\Mail\OrdenT;
 use PDF;
@@ -49,14 +50,9 @@ class OrdenTrabajoController extends Controller
         //dd($request->all());
 
           $codigo=rand(11111, 99999);
-            // $file = Input::file('logo');
-            // $file->move(public_path().'/img/empresas/', date("YmdHi").$file->getClientOriginalName());
             $name = 'ot'.md5(date("dmYhisA")).'.png';
             $nombre = public_path().'/img/firmas/ordent/'.$name;
-
-            //dd($name);
-
-            
+ 
 
             $ordenT = new OrdenTrabajo;
             $ordenT->cod_seguimiento = 'OT'.$codigo;
@@ -69,6 +65,19 @@ class OrdenTrabajoController extends Controller
             if ($ordenT->save()) {
 
                 file_put_contents($nombre,base64_decode($request->firma));
+
+                //for participantes
+            for ($i=0; $i < count($request->nombre_part); $i++)
+             { 
+           
+                $participante = new Participantes;
+                $participante->codigo_acta = 'OT'.$codigo;
+                $participante->nombre = $request->nombre_part[$i];
+                $participante->apellido = $request->apellido[$i];
+                $participante->cargo = $request->cargo[$i];
+                $participante->email = $request->email[$i];
+                $participante->save();
+             }//fin for
 
                  for ($i=0; $i < count($request->nombre); $i++) { 
            
@@ -96,9 +105,11 @@ class OrdenTrabajoController extends Controller
 
         $detalles = DetalleOTrabajo::where('cod_seguimiento',$orden->cod_seguimiento)->get();
 
-        //dd($detalles);
+        $participantes = Participantes::where('codigo_acta',$orden->cod_seguimiento)->whereNotNull('firma')->get();
 
-        return view('ordenT.view',['orden' => $orden,'detalles' => $detalles]);
+      // dd($participantes);
+
+        return view('ordenT.view',['orden' => $orden,'detalles' => $detalles,'participantes' => $participantes]);
     }
 
     /**
@@ -141,23 +152,26 @@ class OrdenTrabajoController extends Controller
 
         $detalles = DetalleOTrabajo::where('cod_seguimiento',$orden->cod_seguimiento)->get();
 
-        //dd($orden->cod_seguimiento);
+        $participantes = Participantes::where('codigo_acta',$orden->cod_seguimiento)->whereNotNull('firma')->get();
 
-        $pdf = PDF::loadView('ordenT.pdf',['orden'=>$orden,'detalles'=>$detalles]);
+        //dd($participantes);
+
+        $pdf = PDF::loadView('ordenT.pdf',['orden'=>$orden,'detalles'=>$detalles,'participantes' => $participantes]);
             
             return $pdf->download($orden->cod_seguimiento.'.pdf');
     }
 
-    public function sendEmail(Request $request)
+    public function sendEmail($id_orden,$id)
     {
-        //dd(env('MAIL_HOST'));
-        $url = route('ordentrabajo.firma',[$request->id]);
+        $url = route('ordentrabajo.firma',[$id]);
 
-        $orden = OrdenTrabajo::findOrfail($request->id);
-         \Mail::to($request->email)
+        $email = Participantes::findOrfail($id);
+
+        $orden = OrdenTrabajo::findOrfail($id_orden);
+         \Mail::to($email->email)
                  ->send(new OrdenT($url,$orden));
 
-         return redirect("ordentrabajo")->with([
+         return back()->with([
           'flash_message' => 'Invitacion enviada correctamente.',
           'flash_class' => 'alert-success'
           ]);
@@ -165,13 +179,15 @@ class OrdenTrabajoController extends Controller
 
     public function firma($id)
     {
-        $orden = OrdenTrabajo::findOrfail($id);
+        //$acta = Actas::findOrfail($id);
 
-        $detalles = DetalleOTrabajo::where('cod_seguimiento',$orden->cod_seguimiento)->get();
+        $participante = Participantes::findOrfail($id);
 
-        //dd($detalles);
+        $orden = OrdenTrabajo::where('cod_seguimiento',$participante->codigo_acta)->first();
 
-        return view('ordenT.firma',['orden' => $orden,'detalles' => $detalles]);
+        $detalles = DetalleOTrabajo::where('cod_seguimiento',$participante->codigo_acta)->get();
+
+        return view('ordenT.firma',['orden' => $orden,'participante' => $participante,'detalles' => $detalles,'id' => $id]);
     }
 
      public function firmaSend(Request $request)
@@ -180,10 +196,9 @@ class OrdenTrabajoController extends Controller
          $name = 'ot'.md5(date("dmYhisA")).'.png';
          $nombre = public_path().'/img/firmas/ordent/'.$name;
 
-         $orden = OrdenTrabajo::findOrfail($request->id_orden);
+         $orden = Participantes::findOrfail($request->id_orden);
 
-         $orden->firma_receptor = $name;
-         $orden->status = 1;
+         $orden->firma = $name;
 
         if ($orden->save()) {
              file_put_contents($nombre,base64_decode($request->firma));
@@ -191,4 +206,6 @@ class OrdenTrabajoController extends Controller
              return response()->json(['msg' => 'Se ha registrado correctamente']);
         }
     }
+
+
 }

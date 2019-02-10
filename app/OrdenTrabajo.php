@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Participantes;
 
 class OrdenTrabajo extends Model
 {
@@ -18,5 +19,10 @@ class OrdenTrabajo extends Model
      public function user()
      {
      	 return $this->belongsTo("App\User", "id_user");
+     }
+
+      public function participantes($codigo)
+     {
+        return Participantes::where('codigo_acta',$codigo)->get();
      }
 }

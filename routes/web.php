@@ -31,6 +31,7 @@ Route::post('/users/register','UserController@register')->name('users.regist');
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
+
 /* Recibo PAgos */
 Route::resource('/recibogastos','ReciboGastosController',['except' => ['store']]);
 Route::get('reciboG/firma/{id}','ReciboGastosController@firma')->name('recibogastos.firma');
@@ -48,8 +49,9 @@ Route::post('/guiaD/signature','GuiaDespachoController@firmaSend')->name('guiade
 
 /* Orden trabajo */
 Route::resource('/ordentrabajo','OrdenTrabajoController',['except' => ['store']]);
-Route::get('ordenT/firma/{id}','OrdenTrabajoController@firma')->name('ordentrabajo.firma');
-Route::post('/ordenT/signature','OrdenTrabajoController@firmaSend')->name('ordentrabajo.send');
+Route::get('/ordent/firma/{id}','OrdenTrabajoController@firma')->name('ordentrabajo.firma');
+Route::post('/ordent/signature','OrdenTrabajoController@firmaSend')->name('ordentrabajo.send');
+Route::get('/ordent/sendmail/{id_orden}/{id}','OrdenTrabajoController@sendEmail')->name('ordentrabajo.sendmail');
 
 /* Actas */
 Route::resource('/actas','ActasController',['except' => ['store']]);

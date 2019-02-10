@@ -36,14 +36,14 @@
         <p><b>Telefono: </b> {{strtoupper($orden->empresa->telefono)}}</p>
         <p><b>Direccion: </b> {{strtoupper($orden->empresa->direccion)}}</p>
         <p><b>Firmas:</b></p>
-        <div class="row">
-          <div class="col-md-6"> <img src="{{asset('img/firmas/ordent'.'/'.$orden->firma)}}"></div>
-          @if($orden->status)
-            <div class="col-md-6"> <img src="{{asset('img/firmas/ordent'.'/'.$orden->firma_receptor)}}"></div>
-          @else
-            <h2>Sin Confirmar</h2>
-          @endif
+        <div class="row"> 
+          @forelse($participantes as $p)
+            <div class="col-md-6"> <img src="{{asset('img/firmas/ordent'.'/'.$p->firma)}}"><br>{{$p->nombre}}</div>
+          @empty
+            <h3 class="text-center">Sin Autorización</h3>
+          @endforelse
         </div>
+        
       </div>
 
       <div class="col-md-6"> 
@@ -52,8 +52,48 @@
         <img src="{{asset('img/empresas/'.$orden->empresa->logo)}}" class="img-responsive">
       </div>
     </div>
+    <br>
+@include('partials.flash')
+   <div class="row">
+      <div class="col-md-12">
+        <h2 class="page-header" style="margin-top:0!important">
+          <i class="fa fa-users" aria-hidden="true"></i>
+          Participantes
+          <span class="clearfix"></span>
+        </h2>
+      </div>
+      <div class="col-md-12">
+       <table class="table data-table table-condensed table-hover table-bordered nowrap" style="width:100%"">
+         <thead>
+           <tr>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Apellido</th>
+            <th class="text-center">Cargo</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">URL</th>
+          </tr>
+         </thead>
+         <tbody>
+          @foreach($orden->participantes($orden->cod_seguimiento) as $p)
+           <tr>
+             <td class="text-center">{{$p->nombre}}</td>
+             <td class="text-center">{{$p->apellido}}</td>
+             <td class="text-center">{{$p->cargo}}</td>7
+             <td class="text-center">{{$p->email}}</td>
+             <td class="text-center">
+                @if($p->firma == NULL)
+                 <a href="{{route('ordentrabajo.sendmail',['id_orden' => $orden->id,'id' => $p->id])}}" class="btn btn-success">Mandar invitación </a>
+                @else
+                 <h4 class="text-center">Autorizado</h4>
+                @endif
+             </td>
+           </tr>
+          @endforeach
+         </tbody>
+       </table>
+      </div>
+    </div>
 
-   
     <div class="row">
       <div class="col-md-12">
         <h2 class="page-header" style="margin-top:0!important">
@@ -96,7 +136,7 @@
           <div class="row">
             <form class="col-md-8 col-md-offset-2" action="{{ route('ordentrabajo.mail')}}" method="POST">
               {{ csrf_field() }}
-              <input type="hidden" name="id" value="{{$orden->id}}">
+              <input type="hidden" name="id" value="{{$orden->cod_seguimiento}}">
              <label class="control-label">Email: </label>
              <input type="email" name="email" class="form-control">
 

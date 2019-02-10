@@ -51,10 +51,10 @@
      
          <form method="POST" enctype="multipart/form-data" id="form_pad">
          <meta name="csrf-token" content="{{ csrf_token() }}" />
-          <input type="hidden" name="id_orden" value="{{$orden->id}}">
+          <input type="hidden" name="id_orden" value="{{$id}}">
           <input type="hidden" name="firma" id="firma" required>
           <div class="row">
-            @if(!$orden->status)
+            @if(!$participante->firma)
              <div class="col-md-6 col-md-offset-3">
                 {{-- <label class="control-label" for="Firma">Firma: *</label> --}}
               <div id="signArea" >
@@ -62,17 +62,17 @@
                   <div class="typed"></div>
                   <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
                 </div>
-                <h3 class="tag-ingo text-center">Firme para confirmar</h3>
+                <h3 class="tag-ingo text-center">{{$participante->nombre.' '.$participante->apellido}}</h3>
               </div>
             </div>
            @else
             <div class="col-md-6 col-md-offset-3">
-              <img src="{{asset('img/firmas/ordent').'/'.$orden->firma_receptor}}">
-              <h3 class="tag-ingo text-center">Confirmado</h3>
+              <img src="{{asset('img/firmas/ordent').'/'.$participante->firma}}">
+              <h3 class="tag-ingo text-center">{{$participante->nombre.' '.$participante->apellido}} Confirmado</h3>
             </div>
            @endif
           </div>
-        @if(!$orden->status)
+        @if(!$participante->firma)
           <div class="row">
             <div class="form-group text-center">
               <button type="button" id="clear" class="btn btn-warning" align="center">Limpiar firma</button>
@@ -81,11 +81,9 @@
           </div>
         @endif
          </form>
-      
-
-      <img src="">
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-12">
         <h2 class="page-header" style="margin-top:0!important">

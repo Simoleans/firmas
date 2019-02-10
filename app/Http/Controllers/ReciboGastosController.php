@@ -23,7 +23,7 @@ class ReciboGastosController extends Controller
          $recibo = ReciboGastos::where('id_user',Auth::user()->id)->get();
         //dd($actas);
 
-        return view('recibog.index',['recibo' => $recibo]);
+        return view('reciboG.index',['recibo' => $recibo]);
     }
 
     /**

@@ -8405,26 +8405,15 @@ button.close {
       <br>
       <br>
       <br>
-
-       <div class="row">
-          <div class="col-xs-6">
-            <div align="center">
-              <img src="{{asset('img/firmas/ordent'.'/'.$orden->firma)}}"><br>
-              <small>Responsable: {{Auth::user()->nombre}}</small>
-            </div>
-          </div>
-          <div class="col-xs-6">
-            <div align="center">
-            @if(!$orden->status)
-              <h3>Sin Confirmar</h3>
-            @else
-              <img src="{{asset('img/firmas/ordent'.'/'.$orden->firma_receptor)}}"><br>
-              <small>Confirmacion</small>
-            @endif
-            </div>
-          </div>
+        <div class="row">
+         
+          @forelse($participantes as $p)
+            <div class="col-xs-6"> <img src="{{asset('img/firmas/ordent'.'/'.$p->firma)}}"><br>{{$p->nombre}}</div>
+          @empty
+            <h3 class="text-center">Sin Autorización</h3>
+          @endforelse
         </div>
-   
+       
   </div> {{-- Fin content --}}
 
 

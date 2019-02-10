@@ -23,7 +23,7 @@ class GuiaDespachoController extends Controller
          $guia = GuiaDespacho::where('id_user',Auth::user()->id)->get();
         //dd($actas);
 
-        return view('guiad.index',['guia' => $guia]);
+        return view('guiaD.index',['guia' => $guia]);
     }
 
     /**
@@ -98,7 +98,7 @@ class GuiaDespachoController extends Controller
 
          $productos = ProductosCompras::where('cod_seguimiento',$guia->cod_seguimiento)->get();
 
-         return view('guiad.view',['guia' => $guia,'productos' => $productos]);
+         return view('guiaD.view',['guia' => $guia,'productos' => $productos]);
     }
 
     /**
@@ -170,7 +170,7 @@ class GuiaDespachoController extends Controller
 
         //dd($productos);
 
-          $pdf = PDF::loadView('guiad.pdf',['guia'=>$guia,'productos'=>$productos]);
+          $pdf = PDF::loadView('guiaD.pdf',['guia'=>$guia,'productos'=>$productos]);
             
             return $pdf->download($guia->cod_seguimiento.'.pdf');
     }
@@ -196,7 +196,7 @@ class GuiaDespachoController extends Controller
 
         //dd($productos);
 
-        return view('guiad.firma',['guia' => $guia,'productos' => $productos]);
+        return view('guiaD.firma',['guia' => $guia,'productos' => $productos]);
     }
 
      public function firmaSend(Request $request)

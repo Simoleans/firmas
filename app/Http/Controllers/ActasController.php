@@ -64,6 +64,7 @@ class ActasController extends Controller
                 $participante->nombre = $request->nombre[$i];
                 $participante->apellido = $request->apellido[$i];
                 $participante->cargo = $request->cargo[$i];
+                $participante->email = $request->email[$i];
                 $participante->save();
              }//fin for
 
