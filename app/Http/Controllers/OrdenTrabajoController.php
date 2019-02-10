@@ -152,7 +152,7 @@ class OrdenTrabajoController extends Controller
 
         $detalles = DetalleOTrabajo::where('cod_seguimiento',$orden->cod_seguimiento)->get();
 
-        $participantes = Participantes::where('codigo_acta',$orden->cod_seguimiento)->whereNotNull('firma')->get();
+        $participantes = Participantes::where('codigo_acta',$orden->cod_seguimiento)->get();
 
         //dd($participantes);
 

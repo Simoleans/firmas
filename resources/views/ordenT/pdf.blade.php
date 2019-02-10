@@ -8400,18 +8400,46 @@ button.close {
             
           </table>
         </div>
+
+         <div class="col-md-12">
+          <h4 class="text-left">Participantes</h4>
+          <table border="1">
+            <tr>
+              <td class="text-center" height="2" width="100" style="background-color: #A4A4A4; color:#000000">#</td>
+              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Nombre</td>
+              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Apellido</td>
+              <td class="text-center" height="2" width="100"  style="background-color: #A4A4A4; color:#000000">Firma</td>
+
+            </tr>
+            @foreach($participantes as $p)
+               <tr>
+                <td class="text-center" height="2" width="100">{{$loop->index+1}}</td>
+                <td class="text-center" height="2" width="100" >{{strtoupper($p->nombre)}}</td>
+                <td class="text-center" height="2" width="100" >{{strtoupper($p->apellido)}}</td>
+                <td class="text-center" height="60" width="100" >
+                  @if(!$p->firma)
+                    <h4>Sin Autorización</h4>
+                  @else
+                    <img src="{{asset('img/firmas/ordent'.'/'.$p->firma)}}" height="50" width="90">
+                  @endif
+                </td>
+              </tr>
+            @endforeach
+            
+          </table>
+        </div>
       </div> {{-- fin row --}}
 
       <br>
       <br>
       <br>
         <div class="row">
-         
-          @forelse($participantes as $p)
-            <div class="col-xs-6"> <img src="{{asset('img/firmas/ordent'.'/'.$p->firma)}}"><br>{{$p->nombre}}</div>
-          @empty
-            <h3 class="text-center">Sin Autorización</h3>
-          @endforelse
+         <div class="col-xs-6">
+            <div align="center">
+              <img src="{{asset('img/firmas/ordent'.'/'.$orden->firma)}}"><br>
+              <small>Responsable: {{Auth::user()->nombre}}</small>
+            </div>
+          </div> 
         </div>
        
   </div> {{-- Fin content --}}
