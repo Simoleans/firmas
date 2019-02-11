@@ -77,7 +77,7 @@
                 @if($p->firma == NULL)
                  <a href="{{ route('actas.firma',[$p->id])}}" target="_blank">{{ route('actas.firma',[$p->id])}}</a>
                 @else
-                 <img src="{{asset('img/actas').'/'.$p->firma}}" class="img-responsive"  align="center">
+                 <h3 class="text-center">Autorizado</h3>
                 @endif
              </td>
            </tr>

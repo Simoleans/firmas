@@ -9,6 +9,7 @@ use App\Empresas;
 use App\Actas;
 use App\Participantes;
 use App\Acciones;
+use PDF;
 
 class ActasController extends Controller
 {
@@ -132,7 +133,17 @@ class ActasController extends Controller
 
     public function pdf($id)
     {
+        $orden = Actas::findOrfail($id);
 
+        $detalles = Acciones::where('codigo_acta',$orden->codigo)->get();
+
+        $participantes = Participantes::where('codigo_acta',$orden->codigo)->get();
+
+        //dd($participantes);
+
+        $pdf = PDF::loadView('actas.pdf',['orden'=>$orden,'detalles'=>$detalles,'participantes' => $participantes]);
+            
+            return $pdf->download($orden->codigo.'.pdf');
     }
 
     public function firma($id)
