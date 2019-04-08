@@ -58,21 +58,28 @@
 						<h2 class="text-center">Participantes</h2>
 					<hr>
 						<div class="field_wrapper row">
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Nombre: *</label>
 										<input id="razon_social" class="form-control" type="text" name="nombre[]" onkeyup="mayus(this);" placeholder="Nombre" required >
 								</div>
 							</div>
 
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Apellido: *</label>
 										<input id="razon_social" class="form-control" type="text" name="apellido[]" onkeyup="mayus(this);"  placeholder="Apellido" required >
 								</div>
 							</div>
+
+							<div class="col-md-3">
+								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
+									<label class="control-label" for="razon_social">Email: *</label>
+										<input id="razon_social" class="form-control" type="text" name="email[]"   placeholder="Email" required >
+								</div>
+							</div>
 							
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
 									<label class="control-label" for="razon_social">Cargo: *</label>
 									<input id="razon_social" class="form-control" type="text" name="cargo[]"   placeholder="Cargo" required >
@@ -159,22 +166,28 @@
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
     var fieldHTML = '<div class="remove">'+
-    						'<div class="col-md-4">'+
+    						'<div class="col-md-3">'+
 								'<div class="form-group">'+
 									'<label class="control-label" for="razon_social">Nombre: *</label>'+
-										'<input id="razon_social" class="form-control" type="text" name="nombre[]" onkeyup="mayus(this);" placeholder="Nombre" required >'+
+										'<input id="razon_social" class="form-control" type="text" name="nombre[]" onkeyup="mayus(this);" placeholder="Nombre" required>'+
 								'</div>'+
 							  '</div>'+
-								'<div class="col-md-4">'+
+								'<div class="col-md-3">'+
 								'<div class="form-group">'+
 									'<label class="control-label" for="razon_social">Apellido: *</label>'+
-										'<input id="razon_social" class="form-control" type="text" name="apellido[]" onkeyup="mayus(this);"  placeholder="Producto" required >'+
+										'<input id="razon_social" class="form-control" type="text" name="apellido[]" onkeyup="mayus(this);"  placeholder="Producto" required>'+
+								'</div>'+
+							'</div>'+
+							'<div class="col-md-3">'+
+								'<div class="form-group">'+
+								 '<label class="control-label" for="razon_social">Email: *</label>'+
+								 '<input id="razon_social" class="form-control" type="text" name="email[]"  placeholder="Email" required>'+
 								'</div>'+
 							'</div>'+
 							'<div class="col-md-3">'+
 								'<div class="form-group">'+
 									'<label class="control-label" for="razon_social">Cargo: *</label>'+
-									'<input id="razon_social" class="form-control" type="text" name="cargo[]"  placeholder="Cargo" required  >'+
+									'<input id="razon_social" class="form-control" type="text" name="cargo[]"  placeholder="Cargo" required>'+
 								'</div>'+
 							'</div>'+
 							'<div class="col-md-1"><div class="form-group"><label class="control-label" for="razon_social">Eliminar: *</label><br><a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button" title="Remove field">X</a></div></div>'+

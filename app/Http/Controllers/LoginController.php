@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Actas;
 
 class LoginController extends Controller
 {
     public function index()
     {
- 			return view('dashboard');
-	 	}
+
+    	 $actas = Actas::where('id_user',Auth::user()->id)->get();
+
+ 			return view('dashboard',['actas' => $actas]);
+	}
 
 	 public function login(Request $request)
 	 {
