@@ -80,7 +80,7 @@ class ActasController extends Controller
              }//fin for
 
 
-             return response()->json(['msg'=>'Se registro correctamente']);
+             return response()->json(['msg'=>'Se registro correctamente','url' => route('actas.show',['acta' => $acta->id])]);
         }
     }
 

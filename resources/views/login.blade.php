@@ -25,7 +25,7 @@
 	      <a href="#"><b>{{ config('app.name') }}</b></a>
 	    </div><!-- /.login-logo -->
 	    <div class="login-box-body">
-	      <p class="login-box-msg">-Solo  personal autorizado-</p>
+	      <p class="login-box-msg">-Desarrollado por: VeanX Technology-</p>
 	      @if (count($errors) > 0)
 	        <div class="alert alert-danger">
 	        	<ul>
@@ -49,7 +49,14 @@
 	        <div class="form-group">
 	            <button id="b-login" type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
 	        </div>
-	        <small><a href="{{route('users.registrar')}}">Registrate Aquí</a></small>
+	        <div class="row">
+	        	 <div class="col-xs-6 ">
+		             <small><a href="{{route('users.registrar')}}">Registrate Aquí</a></small>
+		        </div>
+		        <div class="col-xs-6 ">
+		             <small><a href="">Recuperar Contraseña</a></small>
+		        </div>
+	        </div>
 	      </form> 
 	    </div><!-- /.login-box-body -->
 	  </div><!-- /.login-box -->

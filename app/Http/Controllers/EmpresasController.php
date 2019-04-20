@@ -46,7 +46,7 @@ class EmpresasController extends Controller
         
          $this->validate($request, [
              'rut' => 'required|unique:empresas',
-             'logo' => 'image|mimes:jpeg,png,jpg,svg|max:8048',
+             'logo' => 'image|mimes:jpeg,png,jpg,svg|max:12048',
         ]);
 
          if ($empresa) {

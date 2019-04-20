@@ -156,7 +156,7 @@
 					dataType: 'json',
 					success: function (response) {
 						alert(response.msg);
-					   window.location.reload();
+					   window.location.replace(response.url);
 					},
 				});	
 			}); //fin guardar formulario

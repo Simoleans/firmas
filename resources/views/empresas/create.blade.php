@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Empresas - '.config('app.name'))
-@section('header','Empresas')
+@section('title','Empresa - '.config('app.name'))
+@section('header','Empresa')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-	  <li><a href="{{route('users.index')}}" title="Empresas"> Empresas </a></li>
+	  <li><a href="{{route('users.index')}}" title="Empresas"> Empresa </a></li>
 	  <li class="active">Agregar</li>
 	</ol>
 @endsection

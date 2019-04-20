@@ -274,7 +274,7 @@
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
       <footer class="main-footer">
-        <strong>Copyright &copy; 2018-2019 <a href="#">Desarrollador</a>.</strong> Todos los derechos reservados.
+        <strong>Desarrollador por VeanX Technology - 2019</strong> | todos los derechos reservados| consultas a: contacto@veanx.cl
       </footer>
     </div><!-- .wrapper -->
     <!-- jQuery 2.1.4 -->

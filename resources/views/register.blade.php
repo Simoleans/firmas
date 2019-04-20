@@ -26,31 +26,31 @@
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Registrate</p>
+    <p class="login-box-msg">Registro de usuario</p>
     <form action="{{route('users.regist')}}" method="post">
     	{{csrf_field()}}
 		<div class="form-group {{ $errors->has('apellido')?'has-error':'' }}">
-			<label class="control-label" for="apellido">Nombre completo: *</label>
+			<label class="control-label" for="apellido">Nombre y Apellido: *</label>
 			<input id="apellido" class="form-control" type="text" name="nombre" value="{{ old('apellido')?old('apellido'):'' }}" placeholder="Nombre Completo" required>
 		</div>
 		<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
-			<label class="control-label" for="email">Email: *</label>
+			<label class="control-label" for="email">Correo De Verificación: *</label>
 			<input id="email" class="form-control" type="mail" name="email" value="{{ old('email')?old('email'):'' }}" placeholder="Email" required>
 		</div>
 		<div class="form-group {{ $errors->has('rut_user')?'has-error':'' }}">
-			<label class="control-label" for="rut">RUT: *</label>
-			<input id="rut_user" class="form-control rut" type="text" name="rut_user" value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="RUT" required>
+			<label class="control-label" for="rut">RUT* en formato 00.000.000-0: *</label>
+			<input id="rut_user" class="form-control rut" type="text" name="rut_user" value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="01.999.999-K" required>
 		</div>
 		<div class="form-group {{ $errors->has('ciudad_user')?'has-error':'' }}">
 			<label class="control-label" for="ciudad_user">Ciudad: *</label>
 			<input id="ciudad_user" class="form-control" type="text" name="ciudad_user" value="{{ old('ciudad_user')?old('ciudad_user'):'' }}" placeholder="Ciudad" required>
 		</div>
 		<div class="form-group {{ $errors->has('telefono_user')?'has-error':'' }}">
-			<label class="control-label" for="telefono_user">Telefono: *</label>
+			<label class="control-label" for="telefono_user">Teléfono móvil: *</label>
 			<input id="telefono_user" class="form-control tlf" type="text" name="telefono_user" value="{{ old('telefono_user')?old('telefono_user'):'' }}" placeholder="Telefono" required>
 		</div>
 		<div class="form-group {{ $errors->has('direccion')?'has-error':'' }}">
-			<label class="control-label" for="direccion_user">Direccion: *</label>
+			<label class="control-label" for="direccion_user">Dirección: *</label>
 			<input id="direccion_user" class="form-control" type="text" name="direccion_user" value="{{ old('direccion_user')?old('direccion_user'):'' }}" placeholder="Direccion" required>
 		</div>
 		<div class="form-group {{ $errors->has('password')?'has-error':'' }}">
@@ -58,7 +58,7 @@
 			<input id="password" class="form-control" type="password" name="password" required>
 		</div>
 		<div class="form-group {{ $errors->has('password_confirmation')?'has-error':'' }}">
-			<label class="control-label" for="password_confirmation">Verificar: *</label>
+			<label class="control-label" for="password_confirmation">Verificar contraseña: *</label>
 			<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required>
 		</div>
 	      <div class="row">
@@ -72,7 +72,7 @@
 	          </div>
 	        @endif
 	        <div class="col-xs-4">
-	          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+	          <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
 	        </div>
 	         <div class="col-xs-4 col-xs-offset-4">
 	          <small><a href="{{route('login')}}">Iniciar Sesión</a></small>
