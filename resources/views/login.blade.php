@@ -24,9 +24,15 @@
 	    <center><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:75px"></center>
 	      <a href="#"><b>{{ config('app.name') }}</b></a>
 	    </div><!-- /.login-logo -->
+	     @include('partials.flash')
 	    <div class="login-box-body">
 	      <p class="login-box-msg">-Desarrollado por: VeanX Technology-</p>
-	      @if (count($errors) > 0)
+	       @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                       <small class="text-center text-danger">{{ $error }}</small>
+                    @endforeach
+              @endif
+	      {{-- @if (count($errors) > 0)
 	        <div class="alert alert-danger">
 	        	<ul>
 	          @foreach($errors->all() as $error)
@@ -34,7 +40,7 @@
 	          @endforeach
 	         	</ul>  
 	        </div>
-	      @endif
+	      @endif --}}
 	      <form action="{{route('auth')}}" method="POST">
 	          {{ csrf_field() }}
 	        <div class="form-group has-feedback">
@@ -54,7 +60,7 @@
 		             <small><a href="{{route('users.registrar')}}">Registrate Aquí</a></small>
 		        </div>
 		        <div class="col-xs-6 ">
-		             <small><a href="">Recuperar Contraseña</a></small>
+		             <small><a href="{{route('reset.index')}}">Recuperar Contraseña</a></small>
 		        </div>
 	        </div>
 	      </form> 

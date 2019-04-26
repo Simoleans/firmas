@@ -47,7 +47,21 @@ class ActasController extends Controller
     {
       //dd($request->all());
 
-        $codigo=rand(11111, 99999);
+        //$codigo=rand(11111, 99999);
+
+        $lastId = Actas::latest()->first();
+
+        //dd($lastId);
+
+        if (!$lastId) {
+            $codigo = (str_pad((int)1, 4, '0', STR_PAD_LEFT));
+        }else{
+            $codigo = (str_pad((int)$lastId->id + 1, 4, '0', STR_PAD_LEFT));
+        }
+
+        dd($codigo);
+
+        
 
         $acta = new Actas;
         $acta->codigo = 'AC'.$codigo;
@@ -55,8 +69,12 @@ class ActasController extends Controller
         $acta->id_empresa = $request->id_empresa;
         $acta->observaciones = $request->observaciones;
 
+
+
+
+
         if ($acta->save()) {
-            //for participantes
+            
             for ($i=0; $i < count($request->nombre); $i++)
              { 
            
