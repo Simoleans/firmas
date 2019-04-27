@@ -65,6 +65,12 @@
 								<input id="direccion" class="form-control" type="text" name="direccion" value="{{ old('direccion')?old('direccion'):'' }}" placeholder="Direccion" required>
 							</div>
 						</div>
+						<div class="col-md-6">
+							<div class="form-group {{ $errors->has('giro_comercial')?'has-error':'' }}">
+								<label class="control-label" for="giro">Giro Comercial: *</label>
+								<input id="giro_comercial" class="form-control" type="text" name="giro_comercial" value="{{ old('giro_comercial')?old('giro_comercial'):'' }}" placeholder="Giro Comercial" required>
+							</div>
+						</div>
 						<div class="col-md-12">
 							<div class="form-group {{ $errors->has('logo')?'has-error':'' }}">
 								<label class="control-label" for="logo">Logo de la empresa: *</label>

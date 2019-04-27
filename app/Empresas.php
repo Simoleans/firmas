@@ -17,6 +17,7 @@ class Empresas extends Model
           'rut',
           'direccion',
           'telefono',
+          'giro_comercial',
           'logo',
     ];
 

@@ -32,6 +32,7 @@
         <p><b>Contacto: </b> {{strtoupper($empresa->contacto)}}</p>
         <p><b>Telefono: </b> {{strtoupper($empresa->telefono)}}</p>
         <p><b>Direccion: </b> {{strtoupper($empresa->direccion)}}</p>
+        <p><b>Giro Comercial: </b>{{ strtoupper($empresa->giro_comercial) }}</p>
       </div>
 
       <div class="col-md-4"> 

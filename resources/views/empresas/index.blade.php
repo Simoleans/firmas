@@ -43,6 +43,7 @@
 								<th class="text-center">RUT</th>
 								<th class="text-center">Contacto</th>
 								<th class="text-center">Telefono</th>
+								<th class="text-center">Giro Comercial</th>
 								<th class="text-center">Accion</th>
 							</tr>
 						</thead>
@@ -54,6 +55,7 @@
 									<td>{{$d->rut}}</td>
 									<td>{{$d->contacto}}</td>
 									<td>{{$d->telefono}}</td>
+									<td>{{$d->giro_comercial}}</td>
 									<td>
 										 <a class="btn btn-primary btn-flat btn-sm" href="{{ route('empresas.show',[$d->id])}}"><i class="fa fa-search"></i></a> 
 										<a href="{{route('empresas.edit',[$d->id])}}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>

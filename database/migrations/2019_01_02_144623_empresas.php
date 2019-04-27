@@ -23,6 +23,7 @@ class Empresas extends Migration
             $table->string('rut');
             $table->string('direccion');
             $table->string('telefono');
+            $table->string('giro_comercial');
             $table->string('logo');
             $table->timestamps();
         });
