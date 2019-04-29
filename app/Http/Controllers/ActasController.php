@@ -33,7 +33,7 @@ class ActasController extends Controller
      */
     public function create()
     {
-        $empresa = Empresas::empresa(Auth::user()->id);
+        $empresa = Auth::user()->empresa;
         return view('actas.create',['empresa' => $empresa]);
     }
 
@@ -59,7 +59,7 @@ class ActasController extends Controller
             $codigo = (str_pad((int)$lastId->id + 1, 4, '0', STR_PAD_LEFT));
         }
 
-        dd($codigo);
+        //dd($codigo);
 
         
 
@@ -68,9 +68,7 @@ class ActasController extends Controller
         $acta->id_user = Auth::user()->id;
         $acta->id_empresa = $request->id_empresa;
         $acta->observaciones = $request->observaciones;
-
-
-
+        $acta->status = 1;
 
 
         if ($acta->save()) {

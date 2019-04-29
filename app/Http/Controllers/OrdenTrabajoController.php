@@ -34,7 +34,7 @@ class OrdenTrabajoController extends Controller
      */
     public function create()
     {
-        $empresa = Empresas::where('id_user',Auth::user()->id)->first();
+        $empresa = Auth::user()->empresa;
 
         return view('ordenT.create',['empresa' => $empresa]);
     }
@@ -49,7 +49,18 @@ class OrdenTrabajoController extends Controller
     {
         //dd($request->all());
 
-          $codigo=rand(11111, 99999);
+         
+
+            $lastId = OrdenTrabajo::latest()->first();
+
+                //dd($lastId);
+
+                if (!$lastId) {
+                    $codigo = (str_pad((int)1, 4, '0', STR_PAD_LEFT));
+                }else{
+                    $codigo = (str_pad((int)$lastId->id + 1, 4, '0', STR_PAD_LEFT));
+                }
+
             $name = 'ot'.md5(date("dmYhisA")).'.png';
             $nombre = public_path().'/img/firmas/ordent/'.$name;
  

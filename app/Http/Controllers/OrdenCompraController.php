@@ -48,7 +48,18 @@ class OrdenCompraController extends Controller
      */
     public function store(Request $request)
     {
-        $codigo=rand(11111, 99999);
+        // $codigo=rand(11111, 99999);
+
+          $lastId = OrdenC::latest()->first();
+
+        //dd($lastId);
+
+        if (!$lastId) {
+            $codigo = (str_pad((int)1, 4, '0', STR_PAD_LEFT));
+        }else{
+            $codigo = (str_pad((int)$lastId->id + 1, 4, '0', STR_PAD_LEFT));
+        }
+
 
         //dd($request->all());
 

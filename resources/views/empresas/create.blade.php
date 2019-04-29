@@ -60,6 +60,12 @@
 							</div>
 						</div>
 						<div class="col-md-6">
+							<div class="form-group {{ $errors->has('telefono')?'has-error':'' }}">
+								<label class="control-label" for="telefono_user">Telefono De Casa: </label>
+								<input id="telefono_casa" class="form-control" type="text" name="telefono_casa" value="{{ old('telefono_casa')?old('telefono_casa'):'' }}" placeholder="Telefono De Casa" >
+							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('direccion')?'has-error':'' }}">
 								<label class="control-label" for="direccion_user">Direccion: *</label>
 								<input id="direccion" class="form-control" type="text" name="direccion" value="{{ old('direccion')?old('direccion'):'' }}" placeholder="Direccion" required>
