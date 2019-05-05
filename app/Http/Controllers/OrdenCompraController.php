@@ -35,7 +35,7 @@ class OrdenCompraController extends Controller
 
         $proveedores = Proveedor::where('id_user', Auth::user()->id)->get();
 
-        $empresa = Empresas::where('id_user',Auth::user()->id)->first();
+        $empresa = Auth::user()->empresa;
 
         return view('ordenC.create',['proveedor' => $proveedores,'empresa' => $empresa]);
     }

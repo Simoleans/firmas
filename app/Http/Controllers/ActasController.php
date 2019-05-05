@@ -157,9 +157,9 @@ class ActasController extends Controller
 
         //dd($participantes);
 
-        $pdf = PDF::loadView('actas.pdf',['orden'=>$orden,'detalles'=>$detalles,'participantes' => $participantes]);
+        $pdf = PDF::loadView('pdf.pdfActa',['orden'=>$orden,'detalles'=>$detalles,'participantes' => $participantes]);
             
-            return $pdf->download($orden->codigo.'.pdf');
+            return $pdf->stream($orden->codigo.'.pdf');
     }
 
     public function firma($id)

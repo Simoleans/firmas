@@ -27,14 +27,18 @@
 					<form   method="POST" enctype="multipart/form-data" id="form_pad">
 					{{ method_field( 'POST' ) }}
 					{{ csrf_field() }}
-					<input type="hidden" name="id_empresa" value="{{$empresa->id}}">
 					<input type="hidden" name="firma" id="firma" required>
 					<h4>Agregar Proveedor</h4>
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
-								<label class="control-label" for="razon_social">Empresa: *</label>
-									<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+							<div class="form-group {{ $errors->has('empresa')?'has-error':'' }}">
+								<label class="control-label" for="empresa">Empresa: *</label>
+									<select class="form-control" name="id_empresa">
+										<option value="">Seleccione...</option>
+										@foreach($empresa as $e)
+											<option value="{{$e->id}}">{{$e->r_social}}</option>
+										@endforeach
+									</select>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -47,9 +51,6 @@
 									@endforeach
 								</select>
 							</div>
-						</div>
-						<div class="col-md-3 col-md-offset-2">
-							<a href="{{route('empresas.edit',['id' => $empresa->id])}}" class="btn btn-warning">Editar Empresa</a>
 						</div>
 					</div>
 					<hr>
