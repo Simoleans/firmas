@@ -11,6 +11,7 @@
 @section('content')
 	<section>
     <a class="btn btn-flat btn-default" href="{{ route('actas.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+    <a class="btn btn-danger btn-flat" href="{{ route('actas.pdf',[$acta->id])}}"><i class="fa fa-print"></i></a>
     {{-- <a class="btn btn-flat btn-success" href="{{ route('actas.edit',[$acta->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a> --}}
     <!-- <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button> -->
 	</section>
@@ -58,7 +59,7 @@
         </h2>
       </div>
       <div class="col-md-12">
-       <table class="table data-table table-condensed table-hover table-bordered nowrap" style="width:100%"">
+       <table class="table data-table table-condensed table-hover table-bordered nowrap" style="width:100%">
          <thead>
            <tr>
             <th class="text-center">Nombre</th>
@@ -75,7 +76,7 @@
              <td class="text-center">{{$p->cargo}}</td>
              <td class="text-center">
                 @if($p->firma == NULL)
-                 <a href="{{ route('actas.firma',[$p->id])}}" target="_blank">{{ route('actas.firma',[$p->id])}}</a>
+                 <a  data-id="{{$p->id}}" class="btn btn-flat btn-success btn_invitar">Invitar</a>
                 @else
                  <h3 class="text-center">Autorizado</h3>
                 @endif
@@ -139,4 +140,42 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".btn_invitar").click(function(event) {
+      event.preventDefault();
+
+      var id = $(this).data('id');
+
+      var acta ='{{$acta->codigo}}';
+
+      $.ajax({
+        headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+             },
+        url: '{{route('actas.invitacion')}}',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {id: id,acta: acta},
+      })
+      .done(function(data) {
+        alert(data.msg)
+        console.log("success");
+      })
+      .fail(function(error) {
+        alert(error.responseJSON.msg)
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      
+    });
+  });
+</script>
+
 @endsection

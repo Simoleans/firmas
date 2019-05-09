@@ -10,7 +10,8 @@
 @endsection
 @section('content')
 <section>
-    <a class="btn btn-flat btn-default" href="{{ route('ordentrabajo.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+    <a class="btn btn-flat btn-default" href="{{ route('ordencompra.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+    <a class="btn btn-danger btn-flat" href="{{ route('ordencompra.pdf',[$orden->id])}}"><i class="fa fa-print"></i></a>
     {{-- <a class="btn btn-flat btn-success" href="{{ route('ordentrabajo.edit',[$user->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a> --}}
     @if(!$orden->status)
       <button class="btn btn-flat btn-warning" data-toggle="modal" data-target="#delModal"><i class="fa fa-email" aria-hidden="true"></i> Enviar Mail</button>

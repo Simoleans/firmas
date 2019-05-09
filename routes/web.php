@@ -65,6 +65,7 @@ Route::resource('/actas','ActasController',['except' => ['store']]);
 Route::get('actas/pdf/{id}','ActasController@pdf')->name('actas.pdf');
 Route::get('actas/firma/{id}','ActasController@firma')->name('actas.firma');
 Route::post('/actas/signature','ActasController@firmaSend')->name('actas.send');
+Route::post('/invitacion','ActasController@invitacion')->name('actas.invitacion');
 
 
 Route::group(['middleware' => 'auth'], function() { //middleware auth

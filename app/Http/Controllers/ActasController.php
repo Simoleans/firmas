@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Proveedor;
 use App\Empresas;
-use App\Actas;
 use App\Participantes;
 use App\Acciones;
+use App\Mail\ActasMail;
+use App\Actas;
 use PDF;
 
 class ActasController extends Controller
@@ -188,5 +189,23 @@ class ActasController extends Controller
 
              return response()->json(['msg' => 'Se ha registrado correctamente']);
         }
+    }
+
+    public function invitacion(Request $request)
+    {
+        //dd($request->all());
+
+        $participantes = Participantes::findOrfail($request->id);
+
+       \Mail::to($participantes->email)
+                 ->send(new ActasMail($request->id,$request->acta));
+
+                
+
+        if (\Mail::failures()) {
+             return response()->json(['msg' => 'No se ha enviado el correo :(', 'status' => false], 422);
+        }
+
+          return response()->json(['msg' => 'Se envio el correo correctamente', 'status' => true], 200);
     }
 }
