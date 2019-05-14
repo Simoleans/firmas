@@ -65,6 +65,7 @@
             <th class="text-center">Nombre</th>
             <th class="text-center">Apellido</th>
             <th class="text-center">Cargo</th>
+            <th class="text-center">Invitar</th>
             <th class="text-center">URL</th>
           </tr>
          </thead>
@@ -80,6 +81,14 @@
                 @else
                  <h3 class="text-center">Autorizado</h3>
                 @endif
+             </td>
+             <td>
+               @if($p->firma == NULL)
+                 <center><a  href="{{route('actas.firma',['id' => $p->id])}}" class="btn btn-flat btn-success btn-sm">Firmar</a></center>
+                @else
+                 <h3 class="text-center">¡Ya Firmo!</h3>
+                @endif
+               
              </td>
            </tr>
           @endforeach
