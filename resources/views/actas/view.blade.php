@@ -67,6 +67,7 @@
             <th class="text-center">Cargo</th>
             <th class="text-center">Invitar</th>
             <th class="text-center">URL</th>
+            <th class="text-center hidden-lg">Compartir</th>
           </tr>
          </thead>
          <tbody>
@@ -89,6 +90,9 @@
                  <h3 class="text-center">¡Ya Firmo!</h3>
                 @endif
                
+             </td>
+             <td class="hidden-lg">
+               <button type="button"  class="btn btn-sm btn-warning shareButton"><i class="fa fa-share-alt-square" aria-hidden="true"></i></button>
              </td>
            </tr>
           @endforeach
@@ -155,6 +159,21 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    
+    $(".data-table").on('click','.shareButton', function () { 
+
+      /* Mostramos la opcion nativa de compartir si se navega desde Android */
+      if (navigator.userAgent.match(/Android/i)) {
+        /* Use the Web Share API from Chrome 61+ */
+        navigator.share({title: 'Example Page', url: 'https://viktormorales.com'}).then(console.log('Share successful'));
+      }
+      /* Caso contrario mostramos mensaje de alerta */
+      else { alert('Para activar la opcion nativa de compartir debes utilizar Chrome en Android') }
+    });// fin click deshabilitar
+     /* Recuperamos el boton */
+    shareButton = document.getElementById("shareButton");
+    /* Capturamos el evento CLICK */
+    
     $(".btn_invitar").click(function(event) {
       event.preventDefault();
 
@@ -184,7 +203,13 @@
       });
       
     });
+
+   
+
+
   });
+
+
 </script>
 
 @endsection
