@@ -64,7 +64,7 @@ class AyudasController extends Controller
     {
         $ayuda = Ayudas::findOrfail($id);
 
-        return view('ayudas.view',['ayuda' => $ayuda]);
+        return view('ayudas.show',['ayuda' => $ayuda]);
     }
 
     /**
@@ -75,7 +75,9 @@ class AyudasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ayuda = Ayudas::findOrfail($id);
+
+        return view('ayudas.edit',['ayuda' => $ayuda]);
     }
 
     /**
@@ -87,7 +89,22 @@ class AyudasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ayuda = Ayudas::findOrfail($id);
+
+        $ayuda->fill($request->all());
+
+        if($ayuda->save()){
+            return redirect("ayudas")->with([
+              'flash_message' => 'Ayuda modificada correctamente.',
+              'flash_class' => 'alert-success'
+              ]);
+          }else{
+            return redirect("ayudas")->with([
+              'flash_message' => 'Ha ocurrido un error.',
+              'flash_class' => 'alert-danger',
+              'flash_important' => true
+              ]);
+          }
     }
 
     /**
@@ -98,7 +115,20 @@ class AyudasController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $ayuda = Ayudas::findOrFail($id);
+
+        if($ayuda->delete()){
+            return redirect('ayudas')->with([
+                'flash_class'   => 'alert-success',
+                'flash_message' => 'Ayuda eliminada con exito.'
+            ]);
+        }else{
+            return redirect('ayudas')->with([
+                'flash_class'     => 'alert-danger',
+                'flash_message'   => 'Ha ocurrido un error.',
+                'flash_important' => true
+            ]);
+        }
     }
 
     public function viwers()

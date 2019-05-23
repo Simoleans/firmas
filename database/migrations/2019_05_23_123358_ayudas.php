@@ -16,7 +16,7 @@ class Ayudas extends Migration
         Schema::create('ayudas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable();
             $table->string('video');
             $table->timestamps();
         });
