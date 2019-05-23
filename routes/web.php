@@ -76,6 +76,7 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 
 	/* -- ayudas --*/
 	Route::resource('/ayudas','AyudasController');
+	Route::get('/faq','AyudasController@viwers')->name('ayudas.viwers');
 
 	
 	//* --- Perfil --- */

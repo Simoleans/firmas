@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Ayudas;
 
 class AyudasController extends Controller
 {
@@ -94,5 +95,13 @@ class AyudasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function viwers()
+    {
+
+        $ayudas = Ayudas::all();
+
+        return view('ayudas.viwers');
     }
 }

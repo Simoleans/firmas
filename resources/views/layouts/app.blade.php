@@ -264,7 +264,7 @@
             </li>
 
            <li class="treeview">
-              <a href="{{route('ayudas.create')}}">
+              <a href="{{route('ayudas.viwers')}}">
                 <i class="fa fa-info-circle"></i>
                 <span>FAQ</span>
               </a>
