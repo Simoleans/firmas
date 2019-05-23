@@ -102,6 +102,6 @@ class AyudasController extends Controller
 
         $ayudas = Ayudas::all();
 
-        return view('ayudas.viwers');
+        return view('ayudas.viwers',['faq' => $ayudas]);
     }
 }

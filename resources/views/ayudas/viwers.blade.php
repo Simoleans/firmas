@@ -10,32 +10,27 @@
 @endsection
 @section('content')
    
-
-<div class="box box-success" >
+@foreach($faq as $f)
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <div class="box box-success" >
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-question"></i> <a href="#" data-toggle="collapse" data-target="#demo">Registrar Ayuda</a></h3>
+            <h3 class="box-title"><i class="fa fa-question"></i> <a href="#" data-toggle="collapse" data-target="#{{$f->video}}">{{$f->titulo}}</a></h3>
             <span class="pull-right"></span>
            </div>
             <div class="box-body">
-                <div id="demo" class="collapse">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                <div id="{{$f->video}}" class="collapse">
+                  <h3>{{$f->descripcion}}</h3>
+                  <br>
+                 <div class="video-responsive">
+                    <iframe  src="https://www.youtube.com/embed/{{$f->video}}" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                 </div>
                 </div>
            </div>
       </div>
-
-      <div class="box box-success" >
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-question"></i> <a href="#" data-toggle="collapse" data-target="#ss">Registrar sffs</a></h3>
-            <span class="pull-right"></span>
-           </div>
-            <div class="box-body">
-                <div id="ss" class="collapse">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </div>
-           </div>
-      </div>
+  </div>
+</div>
+      
+@endforeach
+      
 @endsection

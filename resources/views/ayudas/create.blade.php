@@ -30,8 +30,8 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('titulo')?'has-error':'' }}">
-								<label class="control-label" for="titulo">titulo: *</label>
-								<input id="titulo" class="form-control" type="text" name="nombre" value="{{ old('titulo')?old('titulo'):'' }}" placeholder="titulo" required>
+								<label class="control-label" for="titulo">Título: *</label>
+								<input id="titulo" class="form-control" type="text" name="titulo" value="{{ old('titulo')?old('titulo'):'' }}" placeholder="Título" required>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -43,7 +43,7 @@
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('video')?'has-error':'' }}">
 								<label class="control-label" for="rut">Video: *</label>
-								<input id="video" class="form-control rut" type="text" name="video" value="{{ old('video')?old('video'):'' }}" placeholder="https://www.youtube.com/embed/<ID>" required>
+								<input id="video" class="form-control" type="text" name="video" value="{{ old('video')?old('video'):'' }}" placeholder="https://www.youtube.com/embed/<ID>" required>
 							</div>
 						</div>
 						
