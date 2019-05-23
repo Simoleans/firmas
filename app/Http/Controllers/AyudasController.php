@@ -14,7 +14,9 @@ class AyudasController extends Controller
      */
     public function index()
     {
-        //
+        $ayudas = Ayudas::all();
+
+        return view('ayudas.index',['ayudas' => $ayudas]);
     }
 
     /**
@@ -60,7 +62,9 @@ class AyudasController extends Controller
      */
     public function show($id)
     {
-        //
+        $ayuda = Ayudas::findOrfail($id);
+
+        return view('ayudas.view',['ayuda' => $ayuda]);
     }
 
     /**
