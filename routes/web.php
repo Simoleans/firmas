@@ -74,6 +74,9 @@ Route::group(['middleware' => 'auth'], function() { //middleware auth
 	/* --- Usuarios ---*/
 	Route::resource('/users','UserController');
 
+	/* -- ayudas --*/
+	Route::resource('/ayudas','AyudasController');
+
 	
 	//* --- Perfil --- */
 	Route::get('/perfil', 'UserController@perfil')->name('perfil');

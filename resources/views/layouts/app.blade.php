@@ -250,6 +250,25 @@
               </ul>
             </li>
         @endif {{-- Fin de validacion si tiene empresa registrada --}}
+
+          <li class="treeview">
+              <a href="#">
+                <i class="fa fa-question"></i>
+                <span>Ayudas</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('ayudas.create')}}"><i class="fa fa-circle-o"></i>Crear Ayuda</a></li>
+                <li><a href="{{route('ayudas.index')}}"><i class="fa fa-circle-o"></i>Ver Ayudas</a></li>
+              </ul>
+            </li>
+
+           <li class="treeview">
+              <a href="{{route('ayudas.create')}}">
+                <i class="fa fa-info-circle"></i>
+                <span>FAQ</span>
+              </a>
+            </li>
                   
           </ul>
         </section>
