@@ -15,6 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+          'id_user',
           'nombre',
           'email',
           'rut_user',
@@ -37,6 +38,13 @@ class User extends Authenticatable
         //return $this->hasMany('App\Empresas');
 
        return $this->hasMany('App\Empresas','id_user');
+    }
+
+    public function users()
+    {
+        //return $this->hasMany('App\Empresas');
+
+       return $this->hasMany('App\User','id_user');
     }
 
     public function ordenes()

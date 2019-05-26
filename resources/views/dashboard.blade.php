@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+@if($empresa > 0) {{-- Si tiene empresa registrada --}}
 	<div class="row">
 	  	<div class="col-md-6">
 	    	<div class="box box-danger">
@@ -77,4 +78,28 @@
 			</div>
 		</div>
 	</div>
+@else {{--Si no tiene empresa--}}
+	<div class="row">
+		<div class="col-md-12">
+	    	<div class="box box-danger">
+		      <div class="box-header with-border">
+		        <span class="pull-right">
+					{{-- <a href="{{ route('actas.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Acta</a> --}}
+				</span>
+		      </div>
+      			<div class="box-body">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-5">
+							<h4>¡Registra una empresa!</h4>
+						</div>
+						<br>
+						<div class="col-md-6 col-md-offset-5">
+							<a href="{{route('empresas.create')}}" class="btn btn-lg btn-success btn-flat">Registrar Empresa</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+@endif
 @endsection

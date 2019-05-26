@@ -17,6 +17,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         
                 View::composer('layouts.app', 'App\Http\ViewComposers\ProfileComposer');
+                View::composer('dashboard', 'App\Http\ViewComposers\ProfileComposer');
     }
 
     /**

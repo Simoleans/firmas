@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-    	$users = User::all();
+    	$users = User::where('id_user',Auth::user()->id)->get();
     	return view('users.index',['users'=>$users]);
     }
 
