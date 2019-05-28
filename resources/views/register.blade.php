@@ -39,7 +39,7 @@
 		</div>
 		<div class="form-group {{ $errors->has('rut_user')?'has-error':'' }}">
 			<label class="control-label" for="rut">RUT* en formato 00.000.000-0: *</label>
-			<input id="rut_user" class="form-control " type="text" name="rut_user" oninput="checkRut(this)" value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="01.999.999-K" required>
+			<input id="rut_user" class="form-control rut" type="text" name="rut_user"  value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="01.999.999-K" required>
 		</div>
 		<div class="form-group {{ $errors->has('ciudad_user')?'has-error':'' }}">
 			<label class="control-label" for="ciudad_user">Ciudad: *</label>
