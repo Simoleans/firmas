@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Proveedor;
-use App\Empresas;
-use App\Actas;
-use App\Participantes;
 use App\Acciones;
+use App\Actas;
+use App\Empresas;
+use App\Participantes;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class ActasController extends Controller
@@ -20,10 +19,10 @@ class ActasController extends Controller
      */
     public function index()
     {
-        $actas = Actas::where('id_user',Auth::user()->id)->get();
+        $actas = Actas::where('id_user', Auth::user()->id)->get();
         //dd($actas);
 
-        return view('actas.index',['actas' => $actas]);
+        return view('actas.index', ['actas' => $actas]);
     }
 
     /**
@@ -34,7 +33,7 @@ class ActasController extends Controller
     public function create()
     {
         $empresa = Empresas::empresa(Auth::user()->id);
-        return view('actas.create',['empresa' => $empresa]);
+        return view('actas.create', ['empresa' => $empresa]);
     }
 
     /**
@@ -45,42 +44,39 @@ class ActasController extends Controller
      */
     public function store(Request $request)
     {
-      //dd($request->all());
+        //dd($request->all());
 
-        $codigo=rand(11111, 99999);
+        $codigo = rand(11111, 99999);
 
-        $acta = new Actas;
-        $acta->codigo = 'AC'.$codigo;
-        $acta->id_user = Auth::user()->id;
-        $acta->id_empresa = $request->id_empresa;
+        $acta                = new Actas;
+        $acta->codigo        = 'AC' . $codigo;
+        $acta->id_user       = Auth::user()->id;
+        $acta->id_empresa    = $request->id_empresa;
         $acta->observaciones = $request->observaciones;
 
         if ($acta->save()) {
             //for participantes
-            for ($i=0; $i < count($request->nombre); $i++)
-             { 
-           
-                $participante = new Participantes;
-                $participante->codigo_acta = 'AC'.$codigo;
-                $participante->nombre = $request->nombre[$i];
-                $participante->apellido = $request->apellido[$i];
-                $participante->cargo = $request->cargo[$i];
-                $participante->email = $request->email[$i];
+            for ($i = 0; $i < count($request->nombre); $i++) {
+
+                $participante              = new Participantes;
+                $participante->codigo_acta = 'AC' . $codigo;
+                $participante->nombre      = $request->nombre[$i];
+                $participante->apellido    = $request->apellido[$i];
+                $participante->cargo       = $request->cargo[$i];
+                $participante->email       = $request->email[$i];
                 $participante->save();
-             }//fin for
+            } //fin for
 
-             //for acciones
-             for ($i=0; $i < count($request->accion); $i++)
-             { 
-           
-                $acciones = new Acciones;
-                $acciones->codigo_acta = 'AC'.$codigo;
-                $acciones->accion = $request->accion[$i];
+            //for acciones
+            for ($i = 0; $i < count($request->accion); $i++) {
+
+                $acciones              = new Acciones;
+                $acciones->codigo_acta = 'AC' . $codigo;
+                $acciones->accion      = $request->accion[$i];
                 $acciones->save();
-             }//fin for
+            } //fin for
 
-
-             return response()->json(['msg'=>'Se registro correctamente']);
+            return response()->json(['msg' => 'Se registro correctamente']);
         }
     }
 
@@ -94,7 +90,7 @@ class ActasController extends Controller
     {
         $acta = Actas::findOrfail($id);
 
-        return view('actas.view',['acta' => $acta]);
+        return view('actas.view', ['acta' => $acta]);
     }
 
     /**
@@ -135,15 +131,15 @@ class ActasController extends Controller
     {
         $orden = Actas::findOrfail($id);
 
-        $detalles = Acciones::where('codigo_acta',$orden->codigo)->get();
+        $detalles = Acciones::where('codigo_acta', $orden->codigo)->get();
 
-        $participantes = Participantes::where('codigo_acta',$orden->codigo)->get();
+        $participantes = Participantes::where('codigo_acta', $orden->codigo)->get();
 
         //dd($participantes);
 
-        $pdf = PDF::loadView('actas.pdf',['orden'=>$orden,'detalles'=>$detalles,'participantes' => $participantes]);
-            
-            return $pdf->download($orden->codigo.'.pdf');
+        $pdf = PDF::loadView('actas.pdf', ['orden' => $orden, 'detalles' => $detalles, 'participantes' => $participantes]);
+
+        return $pdf->download($orden->codigo . '.pdf');
     }
 
     public function firma($id)
@@ -152,25 +148,25 @@ class ActasController extends Controller
 
         $participante = Participantes::findOrfail($id);
 
-        $acta = Actas::where('codigo',$participante->codigo_acta)->first();
+        $acta = Actas::where('codigo', $participante->codigo_acta)->first();
 
-        return view('actas.firma',['acta' => $acta,'participante' => $participante]);
+        return view('actas.firma', ['acta' => $acta, 'participante' => $participante]);
     }
 
     public function firmaSend(Request $request)
     {
 
-         $name = 'ac'.md5(date("dmYhisA")).'.png';
-         $nombre = public_path().'/img/actas/'.$name;
+        $name   = 'ac' . md5(date("dmYhisA")) . '.png';
+        $nombre = public_path() . '/img/actas/' . $name;
 
-         $participante = Participantes::findOrfail($request->id_participante);
+        $participante = Participantes::findOrfail($request->id_participante);
 
-         $participante->firma = $name;
+        $participante->firma = $name;
 
         if ($participante->save()) {
-             file_put_contents($nombre,base64_decode($request->firma));
+            file_put_contents($nombre, base64_decode($request->firma));
 
-             return response()->json(['msg' => 'Se ha registrado correctamente']);
+            return response()->json(['msg' => 'Se ha registrado correctamente']);
         }
     }
 }
