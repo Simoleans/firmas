@@ -27,6 +27,7 @@
 					<form class="" action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
 					{{ method_field( 'POST' ) }}
 					{{ csrf_field() }}
+					<input type="hidden" name="id_user" value="{{Auth::user()->id}}">
 					<h4>Agregar Usuario</h4>
 					<div class="row">
 						<div class="col-md-6">

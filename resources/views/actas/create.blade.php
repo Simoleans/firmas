@@ -27,32 +27,20 @@
 					<form   method="POST" enctype="multipart/form-data" id="form_pad">
 					{{ method_field( 'POST' ) }}
 					{{ csrf_field() }}
-					<input type="hidden" name="id_empresa" value="{{$empresa->id}}">
 					<input type="hidden" name="id_user" value="{{Auth::user()->id}}">
 					<h4>Datos de la empresa</h4>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-12">
 							<div class="form-group {{ $errors->has('empresa')?'has-error':'' }}">
 								<label class="control-label" for="empresa">Empresa: *</label>
-									<input id="empresa" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->r_social)}}" placeholder="Razon Social" required readonly>
+									<select class="form-control" name="id_empresa">
+										<option value="">Seleccione...</option>
+										@foreach($empresa as $e)
+											<option value="{{$e->id}}">{{$e->r_social}}</option>
+										@endforeach
+									</select>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
-								<label class="control-label" for="razon_social">RUT: *</label>
-									<input id="razon_social" class="form-control" type="text" name="razon_social" value="{{strtoupper($empresa->rut)}}" placeholder="Razon Social" required readonly>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group {{ $errors->has('razon_social')?'has-error':'' }}">
-								<label class="control-label" for="razon_social">Dirección: *</label>
-									<textarea class="form-control" readonly="">{{$empresa->direccion}}</textarea>
-							</div>
-						</div>
-						<div class="col-md-3 col-md-offset-5">
-							<a href="{{route('empresas.edit',['id' => $empresa->id])}}" class="btn btn-warning">Editar Empresa</a>
-						</div>
-						
 					</div>
 					<hr>
 						<h2 class="text-center">Participantes</h2>
@@ -156,7 +144,7 @@
 					dataType: 'json',
 					success: function (response) {
 						alert(response.msg);
-					   window.location.reload();
+					   window.location.replace(response.url);
 					},
 				});	
 			}); //fin guardar formulario

@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Empresas - '.config('app.name'))
-@section('header','Empresas')
+@section('title','Empresa - '.config('app.name'))
+@section('header','Empresa')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-	  <li><a href="{{route('users.index')}}" title="Empresas"> Empresas </a></li>
+	  <li><a href="{{route('users.index')}}" title="Empresas"> Empresa </a></li>
 	  <li class="active">Agregar</li>
 	</ol>
 @endsection
@@ -60,9 +60,21 @@
 							</div>
 						</div>
 						<div class="col-md-6">
+							<div class="form-group {{ $errors->has('telefono')?'has-error':'' }}">
+								<label class="control-label" for="telefono_user">Telefono De Casa: </label>
+								<input id="telefono_casa" class="form-control" type="text" name="telefono_casa" value="{{ old('telefono_casa')?old('telefono_casa'):'' }}" placeholder="Telefono De Casa" >
+							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('direccion')?'has-error':'' }}">
 								<label class="control-label" for="direccion_user">Direccion: *</label>
 								<input id="direccion" class="form-control" type="text" name="direccion" value="{{ old('direccion')?old('direccion'):'' }}" placeholder="Direccion" required>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group {{ $errors->has('giro_comercial')?'has-error':'' }}">
+								<label class="control-label" for="giro">Giro Comercial: *</label>
+								<input id="giro_comercial" class="form-control" type="text" name="giro_comercial" value="{{ old('giro_comercial')?old('giro_comercial'):'' }}" placeholder="Giro Comercial" required>
 							</div>
 						</div>
 						<div class="col-md-12">

@@ -41,20 +41,12 @@ class EmpresasController extends Controller
     {
         //dd($request->all());
 
-        $empresa = Empresas::where('id_user',Auth::user()->id)->exists();
-
-        
          $this->validate($request, [
              'rut' => 'required|unique:empresas',
-             'logo' => 'image|mimes:jpeg,png,jpg,svg|max:8048',
+             'logo' => 'image|mimes:jpeg,png,jpg,svg|max:12048',
         ]);
 
-         if ($empresa) {
-            return redirect("empresas")->with([
-                  'flash_message' => 'Ya tienes una empresa registrada.',
-                  'flash_class' => 'alert-warning'
-                  ]);
-         }else{
+        
 
             if(input::hasFile('logo')){
             $file = Input::file('logo');
@@ -81,7 +73,7 @@ class EmpresasController extends Controller
                   'flash_important' => true
                   ]);
               }
-         } 
+         
     }
 
     /**

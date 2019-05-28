@@ -33,7 +33,7 @@ class GuiaDespachoController extends Controller
      */
     public function create()
     {
-       $empresa = Empresas::where('id_user',Auth::user()->id)->first();
+       $empresa = Auth::user()->empresa;
 
        $empresa_despachos = EmpresaDespacho::all();
 
@@ -50,7 +50,17 @@ class GuiaDespachoController extends Controller
     {
         //dd($request->all());
 
-            $codigo=rand(11111, 99999);
+            // $codigo=rand(11111, 99999);
+              $lastId = GuiaDespacho::latest()->first();
+
+                //dd($lastId);
+
+                if (!$lastId) {
+                    $codigo = (str_pad((int)1, 4, '0', STR_PAD_LEFT));
+                }else{
+                    $codigo = (str_pad((int)$lastId->id + 1, 4, '0', STR_PAD_LEFT));
+                }
+
             // $file = Input::file('logo');
             // $file->move(public_path().'/img/empresas/', date("YmdHi").$file->getClientOriginalName());
             $name = 'gd'.md5(date("dmYhisA")).'.png';

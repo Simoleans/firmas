@@ -33,7 +33,7 @@ class ReciboGastosController extends Controller
      */
     public function create()
     {
-        $empresa = Empresas::where('id_user',Auth::user()->id)->first();
+       $empresa = Auth::user()->empresa;
 
          //$empresa_despachos = EmpresaDespacho::all();
 
@@ -50,7 +50,16 @@ class ReciboGastosController extends Controller
     {
         //dd($request->all());
 
-         $codigo=rand(11111, 99999);
+        
+            $lastId = ReciboGastos::latest()->first();
+
+                //dd($lastId);
+
+                if (!$lastId) {
+                    $codigo = (str_pad((int)1, 4, '0', STR_PAD_LEFT));
+                }else{
+                    $codigo = (str_pad((int)$lastId->id + 1, 4, '0', STR_PAD_LEFT));
+                }
             // $file = Input::file('logo');
             // $file->move(public_path().'/img/empresas/', date("YmdHi").$file->getClientOriginalName());
             $name = 'rg'.md5(date("dmYhisA")).'.png';
@@ -77,7 +86,7 @@ class ReciboGastosController extends Controller
 
             file_put_contents($nombre,base64_decode($request->firma));
 
-            return response()->json(['msg'=>'Se registro correctamente']);
+            return response()->json(['msg'=>'Se registro correctamente','url' => route('recibogastos.show',['acta' => $recibo->id])]);
         }else{
             return response()->json(['msg'=>'¡Error!']);
         }
@@ -140,9 +149,9 @@ class ReciboGastosController extends Controller
 
         //dd($productos);
 
-          $pdf = PDF::loadView('reciboG.pdf',['recibo'=>$recibo,'detalle'=>$detalle]);
+          $pdf = PDF::loadView('pdf.pdfReciboG',['recibo'=>$recibo,'detalle'=>$detalle]);
             
-            return $pdf->download($recibo->cod_seguimiento.'.pdf');
+            return $pdf->stream($recibo->cod_seguimiento.'.pdf');
     }
 
     public function sendEmail(Request $request)

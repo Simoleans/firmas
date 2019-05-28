@@ -19,6 +19,7 @@ class CreateParticipantesTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('cargo');
+            $table->string('email');
             $table->string('firma')->nullable();
             $table->timestamps();
         });
