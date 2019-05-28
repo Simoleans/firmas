@@ -39,7 +39,7 @@
 		</div>
 		<div class="form-group {{ $errors->has('rut_user')?'has-error':'' }}">
 			<label class="control-label" for="rut">RUT* en formato 00.000.000-0: *</label>
-			<input id="rut_user" class="form-control rut" type="text" name="rut_user" value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="01.999.999-K" required>
+			<input id="rut_user" class="form-control " type="text" name="rut_user" oninput="checkRut(this)" value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="01.999.999-K" required>
 		</div>
 		<div class="form-group {{ $errors->has('ciudad_user')?'has-error':'' }}">
 			<label class="control-label" for="ciudad_user">Ciudad: *</label>
@@ -88,6 +88,55 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript">
+	 function checkRut(rut) {
+          // Despejar Puntos
+          var valor = rut.value.replace('.','');
+          // Despejar Guión
+          valor = valor.replace('-','');
+          
+          // Aislar Cuerpo y Dígito Verificador
+          cuerpo = valor.slice(0,-1);
+          dv = valor.slice(-1).toUpperCase();
+          
+          // Formatear RUN
+          rut.value = cuerpo + '-'+ dv
+          
+          // Si no cumple con el mínimo ej. (n.nnn.nnn)
+          if(cuerpo.length < 7) { rut.setCustomValidity("RUT Incompleto"); return false;}
+          
+          // Calcular Dígito Verificador
+          suma = 0;
+          multiplo = 2;
+          
+          // Para cada dígito del Cuerpo
+          for(i=1;i<=cuerpo.length;i++) {
+          
+              // Obtener su Producto con el Múltiplo Correspondiente
+              index = multiplo * valor.charAt(cuerpo.length - i);
+              
+              // Sumar al Contador General
+              suma = suma + index;
+              
+              // Consolidar Múltiplo dentro del rango [2,7]
+              if(multiplo < 7) { multiplo = multiplo + 1; } else { multiplo = 2; }
+        
+          }
+          
+          // Calcular Dígito Verificador en base al Módulo 11
+          dvEsperado = 11 - (suma % 11);
+          
+          // Casos Especiales (0 y K)
+          dv = (dv == 'K')?10:dv;
+          dv = (dv == 0)?11:dv;
+          
+          // Validar que el Cuerpo coincide con su Dígito Verificador
+          if(dvEsperado != dv) { rut.setCustomValidity("RUT Inválido"); return false; }
+          
+          // Si todo sale bien, eliminar errores (decretar que es válido)
+          rut.setCustomValidity('');
+      }
+
+
 	$(".rut").inputmask({
             mask: "9[9.999.999]-[9|K|k]",
           });

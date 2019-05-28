@@ -45,7 +45,7 @@
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('rut_user')?'has-error':'' }}">
 								<label class="control-label" for="rut">RUT: *</label>
-								<input id="rut_user" class="form-control rut" type="text" name="rut_user" value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="RUT" required>
+								<input id="rut_user" class="form-control" oninput="checkRut(this)" type="text" name="rut_user" value="{{ old('rut_user')?old('rut_user'):'' }}" placeholder="RUT" required>
 							</div>
 						</div>
 						<div class="col-md-6">
