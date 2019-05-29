@@ -115,14 +115,14 @@
             @auth
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="hidden-xs">{{ Auth::user()->email }}</span>
+                  <span>{{ Auth::user()->email }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <p>
-                      DESCRIPCCION
-                      <small>LEYENDA DEL USUARIO ONLINE</small>
+                      {{Auth::user()->rut_user}}
+                      <small>{{Auth::user()->direccion_user}}</small>
                     </p>
                   </li>
                   
